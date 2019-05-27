@@ -64,6 +64,11 @@
 				root.scale.multiplyScalar( 0.01 );
 				root.traverse(function( child ){
 					if(child.isMesh){
+						if( child.name == 'Extrudieren_Extrudieren_0' 
+								|| child.name == 'Extrudieren_2_Extrudieren1_0' 
+								|| child.name == 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0'){
+							child.material.side= THREE.DoubleSide;
+						}
 						//child.material = ourMaterial;
 					}
 				});
