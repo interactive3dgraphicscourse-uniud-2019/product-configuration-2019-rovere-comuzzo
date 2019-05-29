@@ -36,6 +36,7 @@
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/OrbitControls.js"></script>
 		<script src='libs/GLTFLoader.js'></script>
+		<script src="libs/dat.gui.min.js"></script>
 		
 		<!-- three.js code -->
 
@@ -57,37 +58,61 @@
 
 			scene.background = textureCube;
 			var mat=loadTexture('textures/Wood_StaggeredFloorPlanks_Diffuse.png');
+			var mat2=loadTexture('textures/Wood_StaggeredFloorPlanks_Diffuse2.png');
 			const materialT = new THREE.MeshStandardMaterial( {
 						//side: THREE.DoubleSide,
    					//wireframe: true,
     				map: mat,
   				} );
+				  const materiala = new THREE.MeshStandardMaterial( {
+						//side: THREE.DoubleSide,
+   					//wireframe: true,
+    				//map: mat2,
+					color: 0xff00000
+  				} );
+			
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				let root = object.scene.children[0];
+				
 				console.log(root.name);
 				root.scale.multiplyScalar( 0.01 );
-
+				
 				root.traverse(function( child ){
-					if(child.name=='Null'){
+					child.castShadow=true;
+					console.log(child.name);
+					if(child.name=='Null'){  //needed to remove a part which was not needed
 						child.remove(child.children[2]);
 					}
+
 					
-					if(child.isMesh){
-						if( child.name == 'Extrudieren_Extrudieren_0' 
-								|| child.name == 'Extrudieren_2_Extrudieren1_0' 
-								|| child.name == 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0'){
+					if(child.name=='Maschiene'){  //needed to remove a part which was not needed
+						console.log(root.children);
+					}
+					
+					if( child.name == 'Extrudieren_Extrudieren_0' 
+							|| child.name == 'Extrudieren_2_Extrudieren1_0' 
+							|| child.name == 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0'
+							|| child.name == 'Rahmen_Chrome_0'
+							 ){
 							
 							if(child.name == 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0'){
 								child.material= materialT;
 								}
 								child.material.side= THREE.DoubleSide;
-						}
-						else{
-							child.material= materialT;
-						}
-						//child.material = ourMaterial;
+							
 					}
+					else{	
+						child.material= materialT;	
+					}
+					
+					
+					if (child.name == 'Extrudieren_2_2_Car_Paint_-_White_Solid_0'){
+								child.material=materiala;
+								child.position.z+=1;
+							}
+								//child.material = ourMaterial;
+					
 				});
 				scene.add(root);
 
@@ -108,16 +133,32 @@
 			}
 
 
-
+			//GUI
+			var Mate={texture : "def"};
+			var Mate2={texture : "def" };
+			var gui = new dat.GUI();
+			var Second = gui.addFolder('Secondario');
+			var Princ = gui.addFolder('Principale');
+			Princ.add(Mate, 'texture', [ 'def' , 'chrome', 'hooray' ] );
+			Second.add(Mate2, 'texture', [ 'def', 'chrome', 'hooray' ] );
 
 			function init() {
 				renderer.setClearColor( 0xf0f0f0 );
 
 				camera.position.set( 0, 0, 10 );
 				scene.add( camera );
-				
+			
+
+				var geometry = new THREE.PlaneGeometry(15, 15, 32 );
+				var material = new THREE.MeshBasicMaterial( {color: 0xdddddd, side: THREE.DoubleSide} );
+				var plane = new THREE.Mesh( geometry, material );
+				plane.receiveShadow=true;
+				scene.add( plane );
+				plane.rotation.x=90*Math.PI/180;
+
 				var light = new THREE.PointLight( 0xffffff, 2, 1000 );
-				light.position.set( 50, 300, 300 );
+				light.position.set( 10, 0, 10 );
+				
 				scene.add( light );
 
 				document.body.appendChild( renderer.domElement );
@@ -129,6 +170,7 @@
 				stats.domElement.style.position = 'absolute';
 				stats.domElement.style.top = '0px';
 				document.body.appendChild( stats.domElement );
+				
 			}
 
 			function onResize() {
@@ -140,12 +182,23 @@
 			function update() {
 				requestAnimationFrame( update );
 				stats.update();
+				
+				
+				//console.log(Mate.texture);
+				//console.log(Mate2.texture);
 				render();
 			}
 
 			function render() {
 				renderer.render( scene, camera );
+				
 			}
+
+
+
+			
+
+
 
 			init();
 			update();
