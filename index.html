@@ -35,18 +35,97 @@
 		<script src="libs/three.js"></script>
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/OrbitControls.js"></script>
-		<script src='libs/GLTFLoader.js'></script>
+		<script src="libs/GLTFLoader.js"></script>
+		<script src="materials.js"></script>
 		<script src="libs/dat.gui.min.js"></script>
+		
+		<!-- shaders -->
+
+		<script type="text/x-glsl" id="vertex">
+		varying vec3 vNormal;
+		varying vec3 vPosition;
+
+		void main() {
+			vec4 vPos = modelViewMatrix * vec4( position, 1.0 );
+			vPosition = vPos.xyz;
+			vNormal = normalMatrix * normal;
+			gl_Position = projectionMatrix * vPos;
+		}
+		</script>
+
+		<script type="text/x-glsl" id="fragment">
+			varying vec3 vNormal;
+			varying vec3 vPosition;
+			uniform vec3 pointLightPosition; // in world space
+			uniform vec3 clight;
+			uniform vec3 cspec;
+			uniform vec3 cdiff;
+			uniform float roughness;
+			const float PI = 3.14159;
+
+			vec3 FSchlick(float lDoth) {
+				return (cspec + (vec3(1.0)-cspec)*pow(1.0 - lDoth,5.0));
+			}
+
+			float DGGX(float nDoth, float alpha) {
+				float alpha2 = alpha*alpha;
+				float d = nDoth*nDoth*(alpha2-1.0)+1.0;
+				return (  alpha2 / (PI*d*d));
+			}
+
+			float G1(float dotProduct, float k) {
+				return (dotProduct / (dotProduct*(1.0-k) + k) );
+			}
+
+			float GSmith(float nDotv, float nDotl) {
+					float k = roughness*roughness;
+					return G1(nDotl,k)*G1(nDotv,k);
+			}
+
+			void main() {
+				vec4 lPosition = viewMatrix * vec4( pointLightPosition, 1.0 );
+				vec3 l = normalize(lPosition.xyz - vPosition.xyz);
+				vec3 n = normalize( vNormal );  // interpolation destroys normalization, so we have to normalize
+				vec3 v = normalize( -vPosition);
+				vec3 h = normalize( v + l);
+				// small quantity to prevent divisions by 0
+				float nDotl = max(dot( n, l ),0.000001);
+				float lDoth = max(dot( l, h ),0.000001);
+				float nDoth = max(dot( n, h ),0.000001);
+				float vDoth = max(dot( v, h ),0.000001);
+				float nDotv = max(dot( n, v ),0.000001);
+				vec3 fresnel = FSchlick(lDoth);
+				vec3 BRDF = (vec3(1.0)-fresnel)*cdiff/PI + fresnel*GSmith(nDotv,nDotl)*DGGX(nDoth,roughness*roughness)/
+					(4.0*nDotl*nDotv);
+				vec3 outRadiance = PI* clight * nDotl * BRDF;
+				// gamma encode the final value
+				gl_FragColor = vec4(pow( outRadiance, vec3(1.0/2.2)), 1.0);
+			}
+		</script>
 		
 		<!-- three.js code -->
 
 		<script>
-
+			
+			var model;
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
 			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
 			var controls = new THREE.OrbitControls( camera, renderer.domElement );
 			var scene = new THREE.Scene();
+			
+			vs = document.getElementById("vertex").textContent;
+			fs = document.getElementById("fragment").textContent;
 
+			redMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.RED, vertexShader: vs, fragmentShader: fs });
+			blueMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUE, vertexShader: vs, fragmentShader: fs });
+			greenMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.GREEN, vertexShader: vs, fragmentShader: fs });
+			whiteMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.WHITE, vertexShader: vs, fragmentShader: fs });
+			metalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.METAL, vertexShader: vs, fragmentShader: fs });
+			ironMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.IRON, vertexShader: vs, fragmentShader: fs });
+			alluminiumMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.ALLUMINIUM, vertexShader: vs, fragmentShader: fs });
+			copperMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.COPPER, vertexShader: vs, fragmentShader: fs });
+			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
+			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
 			var loader = new THREE.CubeTextureLoader();
 				loader.setPath( 'textures/DallasW/' );
 
@@ -73,37 +152,35 @@
 			
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
-				let root = object.scene.children[0];
-				
-				console.log(root.name);
-				root.scale.multiplyScalar( 0.01 );
-				
-				root.traverse(function( child ){
-					child.castShadow=true;
+				model = object.scene.children[0];
+				console.log(model.name);
+				model.scale.multiplyScalar( 0.01 );
+				model.traverse(function( child ){
 					console.log(child.name);
-					if(child.name=='Null'){  //needed to remove a part which was not needed
-						child.remove(child.children[2]);
-					}
-
-					
-					if(child.name=='Maschiene'){  //needed to remove a part which was not needed
-						console.log(root.children);
-					}
-					
-					if( child.name == 'Extrudieren_Extrudieren_0' 
-							|| child.name == 'Extrudieren_2_Extrudieren1_0' 
-							|| child.name == 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0'
-							|| child.name == 'Rahmen_Chrome_0'
-							 ){
+					switch(child.name){
+						case 'Null':
+							child.remove(child.children[2]);
+							break;
+						case 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0':
+							child.visible = false;
+							break;
+						case 'Scheibe_Extrudieren' :
+							child.position.y-=30;
+							break;
+						case 'Blech_Extrudieren_1_Chrome_0':
+							child.position.y-=30;
+						case 'Extrudieren_Extrudieren_0':
+						
 							
-							if(child.name == 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0'){
-								child.material= materialT;
-								}
-								child.material.side= THREE.DoubleSide;
-							
-					}
-					else{	
-						child.material= materialT;	
+						case 'Extrudieren_2_Extrudieren1_0':
+							child.material.side= THREE.DoubleSide;
+							break;
+						case 'Rahmen_Chrome_0':
+							child.scale.y = 1.5;
+							child.position.y -= 58;
+							break;
+						default:
+							break;
 					}
 					
 					
@@ -111,12 +188,13 @@
 								child.material=materiala;
 								child.position.z+=1;
 							}
-								//child.material = ourMaterial;
-					
+								
 				});
-				scene.add(root);
-
+				
+				updateMaterials(alluminiumMaterial, whiteMaterial, redmetalMaterial);
+				scene.add(model);
 			});
+			
 			var stats = new Stats();
 		
 			function loadTexture(file) {
@@ -145,12 +223,12 @@
 			function init() {
 				renderer.setClearColor( 0xf0f0f0 );
 
-				camera.position.set( 0, 0, 10 );
+				camera.position.set( 0, 0, 20 );
 				scene.add( camera );
 			
 
 				var geometry = new THREE.PlaneGeometry(15, 15, 32 );
-				var material = new THREE.MeshBasicMaterial( {color: 0xdddddd, side: THREE.DoubleSide} );
+				var material = new THREE.MeshBasicMaterial( {color: 0x888888, side: THREE.DoubleSide} );
 				var plane = new THREE.Mesh( geometry, material );
 				plane.receiveShadow=true;
 				scene.add( plane );
@@ -182,10 +260,6 @@
 			function update() {
 				requestAnimationFrame( update );
 				stats.update();
-				
-				
-				//console.log(Mate.texture);
-				//console.log(Mate2.texture);
 				render();
 			}
 
@@ -193,11 +267,41 @@
 				renderer.render( scene, camera );
 				
 			}
-
-
-
 			
 
+			function updateMaterials(metal, dispenser, other){
+				if(model == undefined){
+					return;
+				}
+				model.traverse(function(child){
+					if(child.isMesh){
+						switch(child.name){
+							case 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0':
+							case 'Extrudieren_Extrudieren_0':
+							case 'Extrudieren_2_Extrudieren1_0':
+								break;
+							case 'Extrudieren_2_2_Car_Paint_-_White_Solid_0':
+								break;
+							case 'Rahmen_Chrome_0':
+							case 'Sweep_1_Car_Paint_-_White_Solid_0':
+							case 'Blech_Extrudieren_1_Chrome_0':
+								child.material = dispenser;
+								break;
+							case 'Zylinder_1_Chrome_0':
+							case 'Scheibe_Extrudieren_Car_Paint_-_Cherry_Metallic_0':
+							case 'Scheibe_Extrudieren__0':
+							case 'Zylinder_Chrome_0':
+							case 'Zylinder_2_Extrudieren1_0':
+							case 'Zylinder_3_Chrome_0':
+								child.material = metal;
+								break;
+							default:
+								child.material = other;
+								break;
+						}
+					}
+				});
+			}
 
 
 			init();
