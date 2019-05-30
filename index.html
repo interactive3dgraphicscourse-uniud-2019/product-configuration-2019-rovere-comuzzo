@@ -4,11 +4,16 @@
 		<title>product-configuration</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link href="jquery-ui/jquery-ui.css" rel="stylesheet">
 		<style>
 			body {
 				background-color: #f0f0f0;
 				margin: 0px;
 				overflow: hidden;
+			}
+			
+			#slider {
+				width: 95%
 			}
 
 			#info {
@@ -37,7 +42,12 @@
 		<script src="libs/OrbitControls.js"></script>
 		<script src="libs/GLTFLoader.js"></script>
 		<script src="materials.js"></script>
+		<script src="jquery-ui/jquery.js"></script>
+		<script src="jquery-ui/jquery-ui.min.js"></script>
 		<script src="libs/dat.gui.min.js"></script>
+		<!-- body -->
+		
+		<div id="slider"></div>
 		
 		<!-- shaders -->
 
@@ -110,7 +120,7 @@
 			var model;
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
 			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
-			var controls = new THREE.OrbitControls( camera, renderer.domElement );
+			var cameraPivot = new THREE.Object3D();
 			var scene = new THREE.Scene();
 			
 			vs = document.getElementById("vertex").textContent;
@@ -222,9 +232,10 @@
 
 			function init() {
 				renderer.setClearColor( 0xf0f0f0 );
-
+				
+				cameraPivot.add(camera);
 				camera.position.set( 0, 0, 20 );
-				scene.add( camera );
+				
 			
 
 				var geometry = new THREE.PlaneGeometry(15, 15, 32 );
@@ -233,17 +244,25 @@
 				plane.receiveShadow=true;
 				scene.add( plane );
 				plane.rotation.x=90*Math.PI/180;
-
+				scene.add( cameraPivot );
 				var light = new THREE.PointLight( 0xffffff, 2, 1000 );
 				light.position.set( 10, 0, 10 );
 				
 				scene.add( light );
-
-				document.body.appendChild( renderer.domElement );
+				
+				$( "#slider" ).slider({
+					value: 350,
+					max: 700,
+					slide: slide_hor,
+					change: slide_hor
+				});
+				$("body").prepend(renderer.domElement );
+				
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.95);
 
 				window.addEventListener( 'resize', onResize, false );
+				window.addEventListener("wheel", zoom, false);
 
 				stats.domElement.style.position = 'absolute';
 				stats.domElement.style.top = '0px';
@@ -252,7 +271,7 @@
 			}
 
 			function onResize() {
-				renderer.setSize( window.innerWidth, window.innerHeight );
+				renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.95);
 				camera.aspect = ( window.innerWidth / window.innerHeight );
 				camera.updateProjectionMatrix();
 			}
@@ -268,7 +287,17 @@
 				
 			}
 			
-
+			function slide_hor(){
+				cameraPivot.rotation.y = 2 * Math.PI * ($("#slider").slider("value") - 350)/700;
+			}
+			
+			function zoom(evt){
+				let d = evt.deltaY;
+				if((d > 0 && camera.position.z < 40) || (d < 0 && camera.position.z > 20)){
+					camera.position.z += d/30;
+				}
+			}
+			
 			function updateMaterials(metal, dispenser, other){
 				if(model == undefined){
 					return;
