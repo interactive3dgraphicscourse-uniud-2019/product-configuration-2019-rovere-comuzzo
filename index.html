@@ -230,13 +230,18 @@
 			Princ.add(Mate, 'texture', [ 'def' , 'chrome', 'hooray' ] );
 			Second.add(Mate2, 'texture', [ 'def', 'chrome', 'hooray' ] );
 
+			var cameraDir;
+
+
 			function init() {
 				renderer.setClearColor( 0xf0f0f0 );
 				
 				cameraPivot.add(camera);
-				camera.position.set( 0, 0, 20 );
-				
-			
+				camera.position.set( 0, 6, 14 );
+				camera.lookAt(0,3,0);
+
+				cameraDir= new THREE.Vector3(0, 10, 20 ) ;
+				cameraDir.normalize();
 
 				var geometry = new THREE.PlaneGeometry(15, 15, 32 );
 				var material = new THREE.MeshBasicMaterial( {color: 0x888888, side: THREE.DoubleSide} );
@@ -293,8 +298,17 @@
 			
 			function zoom(evt){
 				let d = evt.deltaY;
-				if((d > 0 && camera.position.z < 40) || (d < 0 && camera.position.z > 20)){
-					camera.position.z += d/30;
+				var cam= cameraDir.clone();
+				if((d > 0 && camera.position.z < 20) || (d < 0 && camera.position.z > 10)){
+					if(d>0){
+						camera.position.add( cam.multiplyScalar(Math.abs(d) /30));
+					}else{
+						camera.position.sub( cam.multiplyScalar(Math.abs(d) /30));
+					}
+					//camera.position.z += d/30 ;
+
+					//camera.position.y += d/30 ;
+					//camera.lookAt(0,0,0);
 				}
 			}
 			
