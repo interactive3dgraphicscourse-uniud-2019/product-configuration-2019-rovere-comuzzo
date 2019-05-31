@@ -174,31 +174,24 @@
 						case 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0':
 							child.visible = false;
 							break;
-						case 'Scheibe_Extrudieren' :
-							child.position.y-=30;
-							break;
 						case 'Blech_Extrudieren_1_Chrome_0':
-							child.position.y-=30;
+						case 'Scheibe_Extrudieren':
+							child.position.y -= 30;
+							break;
 						case 'Extrudieren_Extrudieren_0':
-						
-							
 						case 'Extrudieren_2_Extrudieren1_0':
-							child.material.side= THREE.DoubleSide;
+							child.material.side = THREE.DoubleSide;
 							break;
 						case 'Rahmen_Chrome_0':
 							child.scale.y = 1.5;
 							child.position.y -= 58;
 							break;
+						case 'Extrudieren_2_2_Car_Paint_-_White_Solid_0':
+							child.position.z+=1;
+							break;
 						default:
 							break;
 					}
-					
-					
-					if (child.name == 'Extrudieren_2_2_Car_Paint_-_White_Solid_0'){
-								child.material=materiala;
-								child.position.z+=1;
-							}
-								
 				});
 				
 				updateMaterials(alluminiumMaterial, whiteMaterial, redmetalMaterial);
@@ -322,8 +315,6 @@
 							case 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0':
 							case 'Extrudieren_Extrudieren_0':
 							case 'Extrudieren_2_Extrudieren1_0':
-								break;
-							case 'Extrudieren_2_2_Car_Paint_-_White_Solid_0':
 								break;
 							case 'Rahmen_Chrome_0':
 							case 'Sweep_1_Car_Paint_-_White_Solid_0':
