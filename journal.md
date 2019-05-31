@@ -7,7 +7,7 @@
 
 #### 22/05/2019
 
-- Abbiamo deciso di usare un modello di una macchina del caffè perché ci è sembrato più facile da personalizzare e che permettesse l'utilizzo di una gamma di materiali più ampia.
+- Abbiamo deciso di usare il modello della macchinetta da caffè perché ci è sembrato più facile da personalizzare e che permettesse l'utilizzo di una gamma di materiali più ampia.
 
 
 #### Prima versione del modello
