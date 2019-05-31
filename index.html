@@ -243,16 +243,18 @@
 				
 				scene.add( light );
 				
+				$("body").prepend(renderer.domElement );
+				
 				$( "#slider" ).slider({
 					value: 350,
 					max: 700,
 					slide: slide_hor,
 					change: slide_hor
-				});
-				$("body").prepend(renderer.domElement );
+				}).css({ "position": "fixed", "bottom": "2%", "left": "2.5%"});
+				
 				
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.95);
+				renderer.setSize( window.innerWidth, window.innerHeight);
 
 				window.addEventListener( 'resize', onResize, false );
 				window.addEventListener("wheel", zoom, false);
@@ -264,7 +266,7 @@
 			}
 
 			function onResize() {
-				renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.95);
+				renderer.setSize( window.innerWidth, window.innerHeight);
 				camera.aspect = ( window.innerWidth / window.innerHeight );
 				camera.updateProjectionMatrix();
 			}
