@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		<link href="stile.css" rel="stylesheet" type="text/css">
 		<title>product-configuration</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
@@ -13,7 +14,7 @@
 			}
 			
 			#slider {
-				width: 95%
+				width: 82.5%
 			}
 
 			#info {
@@ -47,7 +48,61 @@
 		<script src="libs/dat.gui.min.js"></script>
 		<!-- body -->
 		
+
 		<div id="slider"></div>
+		<div id="logo"><img src="textures/Acme-logo.png" height="50" size="50"></div>
+		<div id="main">
+			
+
+		<div id="colors">
+			<div id="Principale"><h2>Principale</h2></div>
+			<div id="redText"><h3>Plastic Red</h3></div>
+			<div id="red">
+					
+				<img src="textures/red.jpg" id="red" height="20" size="30"  onclick="selectedPrinMaterial(this.id)">
+				
+			</div>
+			<div id="metalRedText"><h3>Metal Red</h3></div>
+			<div id="redMetal">
+				<img src="textures/redMetal.jpg" id="redMetal" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
+			</div>
+			<div id="greenText"><h3>Plastic Green</h3></div>
+			<div id="green">
+				<img src="textures/green.jpg" id="green" height="20" size="30"  onclick="selectedPrinMaterial(this.id)">
+			</div>
+			<div id="blueText"><h3>Plastic Blue</h3></div>
+			<div id="blue">
+				<img src="textures/blu.jpg" id="blue" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
+			</div>
+			<div id="metalBlueText"><h3>Metal Blue</h3></div>
+			<div id="blueMetal">
+				<img src="textures/blueMetal.jpg" id="blueMetal" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
+			</div>
+			<div id="woodText"><h3>Wood</h3></div>
+			<div id="wood">
+				<img src="textures/Wood06_col.jpg" id="wood" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
+			</div>
+
+			<div id="Secondario"><h2>Secondario</h2></div>
+			<div id="metalText"><h3>Metal</h3></div>
+			<div id="metal">
+				<img src="textures/metal.jpg" id="metal" height="20" size="30"  onclick="selectedSecMaterial(this.id)">
+			</div>
+			<div id="ironText"><h3>Iron</h3></div>
+			<div id="iron">
+				<img src="textures/iron.jpg" id="iron" height="20" size="30"  onclick="selectedSecMaterial(this.id)">				
+			</div>
+			<div id="aluminiumText"><h3>Aluminium</h3></div>
+			<div id="aluminium">
+				<img src="textures/aluminium.jpg" id="aluminium" height="20" size="30" onclick="selectedSecMaterial(this.id)">
+			</div>
+			<div id="copperText"><h3>Copper</h3></div>
+			<div id="copper">
+				<img src="textures/copper.jpg" id="copper" height="20" size="30" onclick="selectedSecMaterial(this.id)">
+			</div>
+		</div>
+
+		</div>
 		
 		<!-- shaders -->
 
@@ -113,18 +168,33 @@
 			}
 		</script>
 		
-		<!-- three.js code -->
+			
+<!-- three.js code -->
 
-		<script>
 			
-			var model;
-			var renderer = new THREE.WebGLRenderer( { antialias: true } );
-			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
-			var cameraPivot = new THREE.Object3D();
-			var scene = new THREE.Scene();
-			
-			vs = document.getElementById("vertex").textContent;
-			fs = document.getElementById("fragment").textContent;
+			<script>
+				var renderer = new THREE.WebGLRenderer( { antialias: true } );
+				var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
+				
+				var scene = new THREE.Scene();
+				// default: white, 1.0 intensity
+				var lightParameters = {
+					red: 1.0,
+					green: 1.0,
+					blue: 1.0,
+					intensity: 1.0,
+				}
+				var ambientLightParameters = {
+					red: 0.2,
+					green: 0.2,
+					blue: 0.2,
+					intensity: 1.0,
+				}
+				var textureParameters = {
+					normalScale: 0.0,
+				}
+				vs = document.getElementById("vertex").textContent;
+				fs = document.getElementById("fragment").textContent;
 
 			redMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.RED, vertexShader: vs, fragmentShader: fs });
 			blueMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUE, vertexShader: vs, fragmentShader: fs });
@@ -132,10 +202,13 @@
 			whiteMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.WHITE, vertexShader: vs, fragmentShader: fs });
 			metalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.METAL, vertexShader: vs, fragmentShader: fs });
 			ironMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.IRON, vertexShader: vs, fragmentShader: fs });
-			alluminiumMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.ALLUMINIUM, vertexShader: vs, fragmentShader: fs });
+			aluminiumMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.aluminium, vertexShader: vs, fragmentShader: fs });
 			copperMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.COPPER, vertexShader: vs, fragmentShader: fs });
 			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
 			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
+			globalPriMaterial=redMaterial;
+			globalSecMaterial=aluminiumMaterial;
+
 			var loader = new THREE.CubeTextureLoader();
 				loader.setPath( 'textures/DallasW/' );
 
@@ -145,20 +218,10 @@
 					'posz.jpg', 'negz.jpg'
 				] );
 
+
+
 			scene.background = textureCube;
-			var mat=loadTexture('textures/Wood_StaggeredFloorPlanks_Diffuse.png');
-			var mat2=loadTexture('textures/Wood_StaggeredFloorPlanks_Diffuse2.png');
-			const materialT = new THREE.MeshStandardMaterial( {
-						//side: THREE.DoubleSide,
-   					//wireframe: true,
-    				map: mat,
-  				} );
-				  const materiala = new THREE.MeshStandardMaterial( {
-						//side: THREE.DoubleSide,
-   					//wireframe: true,
-    				//map: mat2,
-					color: 0xff00000
-  				} );
+			
 			
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
@@ -194,7 +257,7 @@
 					}
 				});
 				
-				updateMaterials(alluminiumMaterial, whiteMaterial, redmetalMaterial);
+				updateMaterials(aluminiumMaterial, whiteMaterial, redMaterial);
 				scene.add(model);
 			});
 			
@@ -213,16 +276,16 @@
 					return texture;
 			}
 
-
+			var cameraPivot= new THREE.Object3D(0,0,0);
 			//GUI
-			var Mate={texture : "def"};
+			/* var Mate={texture : "def"};
 			var Mate2={texture : "def" };
 			var gui = new dat.GUI();
 			var Second = gui.addFolder('Secondario');
 			var Princ = gui.addFolder('Principale');
 			Princ.add(Mate, 'texture', [ 'def' , 'chrome', 'hooray' ] );
 			Second.add(Mate2, 'texture', [ 'def', 'chrome', 'hooray' ] );
-
+ */
 			var cameraDir;
 
 
@@ -252,24 +315,26 @@
 					value: 350,
 					max: 700,
 					slide: slide_hor,
-					change: slide_hor
+					change: slide_hor,
+					
 				});
 				$("body").prepend(renderer.domElement );
 				
 				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.95);
+				renderer.setSize( window.innerWidth * 1, window.innerHeight * 1);
 
 				window.addEventListener( 'resize', onResize, false );
 				window.addEventListener("wheel", zoom, false);
 
 				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
+				stats.domElement.style.top = '70px';
 				document.body.appendChild( stats.domElement );
-				
+				document.getElementById('main').appendChild(renderer.domElement);
 			}
 
 			function onResize() {
-				renderer.setSize( window.innerWidth * 0.95, window.innerHeight * 0.95);
+				renderer.setSize( window.innerWidth * 1, window.innerHeight * 1);
+				
 				camera.aspect = ( window.innerWidth / window.innerHeight );
 				camera.updateProjectionMatrix();
 			}
@@ -298,12 +363,49 @@
 					}else{
 						camera.position.sub( cam.multiplyScalar(Math.abs(d) /30));
 					}
-					//camera.position.z += d/30 ;
-
-					//camera.position.y += d/30 ;
-					//camera.lookAt(0,0,0);
 				}
 			}
+
+
+			function selectedPrinMaterial(selected){
+				
+				switch(selected){
+					case 'red': globalPriMaterial=redMaterial;
+						break;
+					case 'green': globalPriMaterial=greenMaterial;
+						break;
+					case 'blue': globalPriMaterial=blueMaterial;
+						break; 
+					case 'wood': globalPriMaterial="todo";
+						break;
+					case 'redMetal': globalPriMaterial=redmetalMaterial;
+						break;
+					case 'blueMetal': globalPriMaterial=bluemetalMaterial;
+						break;
+				}
+				updateMaterials(whiteMaterial, globalSecMaterial , globalPriMaterial);
+			}
+
+			function selectedSecMaterial(selected){
+				
+				
+					switch(selected){
+					case 'metal': globalSecMaterial=metalMaterial;
+						break;
+					case 'iron': globalSecMaterial=ironMaterial;
+						break;
+					case 'aluminium': globalSecMaterial=aluminiumMaterial;
+						break; 
+					case 'copper': globalSecMaterial=copperMaterial;
+						break;
+					
+				}
+				updateMaterials( whiteMaterial, globalSecMaterial, globalPriMaterial);
+			}
+
+
+
+
 			
 			function updateMaterials(metal, dispenser, other){
 				if(model == undefined){
@@ -343,5 +445,6 @@
 			render();
 
 		</script>
+		
 	</body>
 </html>
