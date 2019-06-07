@@ -271,11 +271,6 @@
 		
 		<!-- three.js code -->
 
-		
-			
-
-
-			
 			<script>
 				var renderer = new THREE.WebGLRenderer( { antialias: true } );
 				var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -313,7 +308,7 @@
 			copperMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.COPPER, vertexShader: vs, fragmentShader: fs });
 			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
 			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
-			globalPriMaterial=redMaterial;
+					globalPriMaterial=redMaterial;
 			globalSecMaterial=aluminiumMaterial;
 
 			var loader = new THREE.CubeTextureLoader();
@@ -343,23 +338,8 @@
 						ambientLight:	{ type: "v3", value: new THREE.Vector3() },
 						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 			};
-			
-			var woodMaterial = new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: vst, fragmentShader: fst });
-			
-			var mat=loadTexture('textures/Wood_StaggeredFloorPlanks_Diffuse.png');
-			var mat2=loadTexture('textures/Wood_StaggeredFloorPlanks_Diffuse2.png');
-			const materialT = new THREE.MeshStandardMaterial( {
-						//side: THREE.DoubleSide,
-   					//wireframe: true,
-    				map: mat,
-  				} );
-				  const materiala = new THREE.MeshStandardMaterial( {
-						//side: THREE.DoubleSide,
-   					//wireframe: true,
-    				//map: mat2,
-					color: 0xff00000
-  				} );
-			
+			woodMaterial = new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: vst, fragmentShader: fst });
+	
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				model = object.scene.children[0];
@@ -512,7 +492,7 @@
 						break;
 					case 'blue': globalPriMaterial=blueMaterial;
 						break; 
-					case 'wood': globalPriMaterial="todo";
+					case 'wood': globalPriMaterial=woodMaterial;
 						break;
 					case 'redMetal': globalPriMaterial=redmetalMaterial;
 						break;
