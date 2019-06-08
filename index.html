@@ -1,5 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
+		
+
 	<head>
 		<link href="stile.css" rel="stylesheet" type="text/css">
 		<title>product-configuration</title>
@@ -38,6 +41,7 @@
 		</style>
 	</head>
 	<body>
+
 		<script src="libs/three.js"></script>
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/OrbitControls.js"></script>
@@ -119,6 +123,7 @@
 		</script>
 
 		<script type="text/x-glsl" id="fragment">
+			
 			varying vec3 vNormal;
 			varying vec3 vPosition;
 			uniform vec3 pointLightPosition; // in world space
@@ -169,6 +174,7 @@
 		</script>
 		
 		<script type="text/x-glsl" id="texture-vertex">
+			
 		varying vec3 vNormal;
 		varying vec3 vPosition;
 		varying vec2 uVv;
@@ -182,7 +188,10 @@
 		}
 		</script>
 
+		
+
 		<script type="text/x-glsl" id="texture-fragment">
+			
 			varying vec3 vNormal;
 			varying vec3 vPosition;
 			varying vec2 uVv;
@@ -220,7 +229,7 @@
 					return G1(nDotl,k)*G1(nDotv,k);
 			}
 
-			#extension GL_OES_standard_derivatives : enable
+			
 
 		vec3 perturbNormal2Arb( vec3 eye_pos, vec3 surf_norm ) {
 
@@ -270,7 +279,7 @@
 		</script>
 		
 		<!-- three.js code -->
-
+		
 			<script>
 				var renderer = new THREE.WebGLRenderer( { antialias: true } );
 				var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -292,11 +301,13 @@
 				var textureParameters = {
 					normalScale: 0.0,
 				}
+				
 				vs = document.getElementById("vertex").textContent;
 				fs = document.getElementById("fragment").textContent;
 			
 			vst = document.getElementById("texture-vertex").textContent;
 			fst = document.getElementById("texture-fragment").textContent;
+		
 
 			redMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.RED, vertexShader: vs, fragmentShader: fs });
 			blueMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUE, vertexShader: vs, fragmentShader: fs });
@@ -338,8 +349,13 @@
 						ambientLight:	{ type: "v3", value: new THREE.Vector3() },
 						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 			};
-			woodMaterial = new THREE.ShaderMaterial({ uniforms: textureUniforms, vertexShader: vst, fragmentShader: fst });
-	
+		woodMaterial = new THREE.ShaderMaterial({uniforms: textureUniforms, vertexShader:vst ,fragmentShader:fst});
+			
+			woodMaterial.extensions = {
+		derivatives: true
+	};
+			
+
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				model = object.scene.children[0];
@@ -394,15 +410,6 @@
 			}
 
 			var cameraPivot= new THREE.Object3D(0,0,0);
-			//GUI
-			/* var Mate={texture : "def"};
-			var Mate2={texture : "def" };
-			var gui = new dat.GUI();
-			var Second = gui.addFolder('Secondario');
-			var Princ = gui.addFolder('Principale');
-			Princ.add(Mate, 'texture', [ 'def' , 'chrome', 'hooray' ] );
-			Second.add(Mate2, 'texture', [ 'def', 'chrome', 'hooray' ] );
- */
 			var cameraDir;
 
 
