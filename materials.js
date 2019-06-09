@@ -5,7 +5,9 @@ const MATERIALS =
 			cdiff:	{ type: "v3", value: new THREE.Vector3(  0.7,   0.0,   0.0) },
 			clight:	{ type: "v3", value: new THREE.Vector3(  1.0,   1.0,   1.0) },
 			roughness: { type: "f", value: 0.2 },
-			pointLightPosition:	{ type: "v3", value: new THREE.Vector3(0, 0, 100) }
+			pointLightPosition:	[{ type: "v3", value: new THREE.Vector3(0, 20, 100)},
+								 { type: "v3", value: new THREE.Vector3(-70, 20, -70)},
+								 { type: "v3", value: new THREE.Vector3(70, 20, -70) }]
 		},
 	GREEN: {
 			cspec:	{ type: "v3", value: new THREE.Vector3(0.004, 0.004, 0.004) },
