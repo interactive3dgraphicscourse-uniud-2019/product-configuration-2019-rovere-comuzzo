@@ -13,10 +13,6 @@
 				overflow: hidden;
 			}
 			
-			#slider {
-				width: 82.5%
-			}
-
 			#info {
 				position: absolute;
 				top: 0px; width: 100%;
@@ -48,8 +44,10 @@
 		<script src="libs/dat.gui.min.js"></script>
 		<!-- body -->
 		
-		<div id="button"><button type="button">GUI</button></div>
 		<div id="slider"></div>
+		<div id="gui-button">
+		<input class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
+		</div>
 		<div id="logo"><img src="gui-images/Acme-logo.png" height="50" size="50"></div>
 		<div id="main">
 			
@@ -417,7 +415,7 @@
 					max: 700,
 					slide: slide,
 					change: slide
-				}).css({ "position": "fixed", "bottom": "2%", "left": "2.5%"});
+				}).css({ "position": "fixed", "bottom": "2%", "left": "2%"});
 				
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight);
@@ -459,7 +457,28 @@
 					camera.position.add( cam.multiplyScalar(d/40));
 				}
 			}
-
+			
+			function updateGUIButton(){
+				if($("#gui-button").children().attr("value") == "Close"){
+					$("#gui-button").children().attr("value", "Open");
+				} else {
+					$("#gui-button").children().attr("value", "Close");
+				}
+				$("#gui-button").children().attr("disabled", false);
+			}
+			
+			function changeGUIState(){
+				$("#gui-button").children().attr("disabled", true);
+				let options = {direction: "right"};
+				if($("#gui-button").children().attr("value") == "Close"){
+					$("#colors").hide("slide", options, 500, updateGUIButton);
+					$("#slider").animate({ "width":"96%" }, 500, "swing");
+				} else {
+					$("#colors").show("slide", options, 500, updateGUIButton);
+					$("#slider").animate({ "width":"81%" }, 500, "swing");
+				}
+			}
+			
 			function selectedPrinMaterial(selected){
 				switch(selected){
 					case 'red':
@@ -483,7 +502,7 @@
 					default:
 						break;
 				}
-				updateMaterials(whiteMaterial, dispenserMaterial , caseMaterial);
+				updateMaterials(whiteMaterial, dispenserMaterial, caseMaterial);
 			}
 
 			function selectedSecMaterial(selected){
