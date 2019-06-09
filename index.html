@@ -481,11 +481,8 @@
 			function zoom(evt){
 				const d = evt.deltaY;
 				if((d > 0 && camera.position.z < 20) || (d < 0 && camera.position.z > 10)){
-					if(d>0){
-						camera.position.add( cam.multiplyScalar(Math.abs(d) /30));
-					}else{
-						camera.position.sub( cam.multiplyScalar(Math.abs(d) /30));
-					}
+					let cam = cameraDir.clone();
+					camera.position.add( cam.multiplyScalar(d/40));
 				}
 			}
 
