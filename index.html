@@ -1,8 +1,5 @@
-
 <!DOCTYPE html>
 <html lang="en">
-		
-
 	<head>
 		<link href="stile.css" rel="stylesheet" type="text/css">
 		<title>product-configuration</title>
@@ -41,7 +38,6 @@
 		</style>
 	</head>
 	<body>
-
 		<script src="libs/three.js"></script>
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/OrbitControls.js"></script>
@@ -52,13 +48,7 @@
 		<script src="libs/dat.gui.min.js"></script>
 		<!-- body -->
 		
-		<div id="button">
-				<script>
-				var btn = document.createElement("BUTTON");   
-					btn.innerHTML = "CLICK ME";                   
-					document.getElementById("colors").appendChild(btn);  
-				</script>
-			<div>
+		<div id="button"><button type="button">GUI</button></div>
 		<div id="slider"></div>
 		<div id="logo"><img src="gui-images/Acme-logo.png" height="50" size="50"></div>
 		<div id="main">
@@ -67,6 +57,8 @@
 		
 
 		<div id="colors">
+				
+			
 			<div id="Principale"><h2>Principale</h2></div>
 			<div id="redText"><h3>Plastic Red</h3></div>
 			<div id="red">
@@ -112,8 +104,8 @@
 			<div id="copper">
 				<img src="gui-images/copper.jpg" id="copper" height="20" size="30" onclick="selectedSecMaterial(this.id)">
 			</div>
+			
 		</div>
-
 		</div>
 		
 		<!-- shaders -->
@@ -195,8 +187,6 @@
 			gl_Position = projectionMatrix * vPos;
 		}
 		</script>
-
-		
 
 		<script type="text/x-glsl" id="texture-fragment">
 			
@@ -288,35 +278,18 @@
 		
 		<!-- three.js code -->
 		
-			<script>
-				var renderer = new THREE.WebGLRenderer( { antialias: true } );
-				var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
+		<script>
+			var renderer = new THREE.WebGLRenderer( { antialias: true } );
+			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
 				
-				var scene = new THREE.Scene();
-				// default: white, 1.0 intensity
-				var lightParameters = {
-					red: 1.0,
-					green: 1.0,
-					blue: 1.0,
-					intensity: 1.0,
-				}
-				var ambientLightParameters = {
-					red: 0.2,
-					green: 0.2,
-					blue: 0.2,
-					intensity: 1.0,
-				}
-				var textureParameters = {
-					normalScale: 0.0,
-				}
+			var scene = new THREE.Scene();
 				
-				vs = document.getElementById("vertex").textContent;
-				fs = document.getElementById("fragment").textContent;
+			vs = document.getElementById("vertex").textContent;
+			fs = document.getElementById("fragment").textContent;
 			
 			vst = document.getElementById("texture-vertex").textContent;
 			fst = document.getElementById("texture-fragment").textContent;
 		
-
 			redMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.RED, vertexShader: vs, fragmentShader: fs });
 			blueMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUE, vertexShader: vs, fragmentShader: fs });
 			greenMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.GREEN, vertexShader: vs, fragmentShader: fs });
@@ -327,19 +300,17 @@
 			copperMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.COPPER, vertexShader: vs, fragmentShader: fs });
 			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
 			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
-			globalPriMaterial=redMaterial;
-			globalSecMaterial=aluminiumMaterial;
+			caseMaterial = redMaterial;
+			dispenserMaterial = aluminiumMaterial;
 
 			var loader = new THREE.CubeTextureLoader();
 				loader.setPath( 'textures/DallasW/' );
 
-				var textureCube = loader.load( [
-					'posx.jpg', 'negx.jpg',
-					'posy.jpg', 'negy.jpg',
-					'posz.jpg', 'negz.jpg'
-				] );
-
-
+			var textureCube = loader.load( [
+				'posx.jpg', 'negx.jpg',
+				'posy.jpg', 'negy.jpg',
+				'posz.jpg', 'negz.jpg'
+			] );
 
 			scene.background = textureCube;
 			var diffuseMap = loadTexture( "textures/" + "Wood06_col.jpg" );
@@ -357,13 +328,10 @@
 						ambientLight:	{ type: "v3", value: new THREE.Vector3() },
 						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 			};
+			
 			woodMaterial = new THREE.ShaderMaterial({uniforms: textureUniforms, vertexShader:vst ,fragmentShader:fst});
+			woodMaterial.extensions = { derivatives: true };
 			
-			woodMaterial.extensions = {
-				derivatives: true
-			};
-			
-
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				model = object.scene.children[0];
@@ -391,7 +359,7 @@
 							child.position.y -= 58;
 							break;
 						case 'Extrudieren_2_2_Car_Paint_-_White_Solid_0':
-							child.position.z+=1;
+							child.position.z += 1;
 							break;
 						default:
 							break;
@@ -420,7 +388,6 @@
 			var cameraPivot= new THREE.Object3D(0,0,0);
 			var cameraDir;
 
-
 			function init() {
 				renderer.setClearColor( 0xf0f0f0 );
 				
@@ -428,7 +395,7 @@
 				camera.position.set( 0, 6, 14 );
 				camera.lookAt(0,3,0);
 
-				cameraDir= new THREE.Vector3(0, 10, 20 ) ;
+				cameraDir = new THREE.Vector3(0, 10, 20 );
 				cameraDir.normalize();
 
 				var geometry = new THREE.PlaneGeometry(15, 15, 32 );
@@ -436,7 +403,7 @@
 				var plane = new THREE.Mesh( geometry, material );
 				plane.receiveShadow=true;
 				scene.add( plane );
-				plane.rotation.x=90*Math.PI/180;
+				plane.rotation.x = 90*Math.PI/180;
 				scene.add( cameraPivot );
 				var light = new THREE.PointLight( 0xffffff, 2, 1000 );
 				light.position.set( 10, 0, 10 );
@@ -448,10 +415,9 @@
 				$( "#slider" ).slider({
 					value: 350,
 					max: 700,
-					slide: slide_hor,
-					change: slide_hor
+					slide: slide,
+					change: slide
 				}).css({ "position": "fixed", "bottom": "2%", "left": "2.5%"});
-				
 				
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight);
@@ -482,7 +448,7 @@
 				
 			}
 			
-			function slide_hor(){
+			function slide(){
 				cameraPivot.rotation.y = 2 * Math.PI * ($("#slider").slider("value") - 350)/700;
 			}
 			
@@ -494,49 +460,52 @@
 				}
 			}
 
-
 			function selectedPrinMaterial(selected){
-				
 				switch(selected){
-					case 'red': globalPriMaterial=redMaterial;
+					case 'red':
+						caseMaterial = redMaterial;
 						break;
-					case 'green': globalPriMaterial=greenMaterial;
+					case 'green':
+						caseMaterial = greenMaterial;
 						break;
-					case 'blue': globalPriMaterial=blueMaterial;
+					case 'blue':
+						caseMaterial = blueMaterial;
 						break; 
-					case 'wood': globalPriMaterial=woodMaterial;
+					case 'wood':
+						caseMaterial = woodMaterial;
 						break;
-					case 'redMetal': globalPriMaterial=redmetalMaterial;
+					case 'redMetal':
+						caseMaterial = redmetalMaterial;
 						break;
-					case 'blueMetal': globalPriMaterial=bluemetalMaterial;
+					case 'blueMetal':
+						caseMaterial = bluemetalMaterial;
+						break;
+					default:
 						break;
 				}
-				updateMaterials(whiteMaterial, globalSecMaterial , globalPriMaterial);
+				updateMaterials(whiteMaterial, dispenserMaterial , caseMaterial);
 			}
 
 			function selectedSecMaterial(selected){
-				
-				
-					switch(selected){
-					case 'metal': globalSecMaterial=metalMaterial;
+				switch(selected){
+					case 'metal':
+						dispenserMaterial = metalMaterial;
 						break;
-					case 'iron': globalSecMaterial=ironMaterial;
+					case 'iron':
+						dispenserMaterial = ironMaterial;
 						break;
-					case 'aluminium': globalSecMaterial=aluminiumMaterial;
+					case 'aluminium':
+						dispenserMaterial = aluminiumMaterial;
 						break; 
-					case 'copper': globalSecMaterial=copperMaterial;
+					case 'copper':
+						dispenserMaterial = copperMaterial;
 						break;
-					
-					let cam = cameraDir.clone();
-					camera.position.add( cam.multiplyScalar(d/40));
+					default:
+						break;
 				}
-				updateMaterials( whiteMaterial, globalSecMaterial, globalPriMaterial);
+				updateMaterials( whiteMaterial, dispenserMaterial, caseMaterial);
 			}
 
-
-
-
-			
 			function updateMaterials(metal, dispenser, other){
 				if(model == undefined){
 					return;
@@ -568,7 +537,6 @@
 					}
 				});
 			}
-
 
 			init();
 			update();

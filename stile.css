@@ -1,11 +1,6 @@
 
 
-#button{
-position: fixed;
-    z-index: 11;
-    left: 5%;
-    bottom: 5%;
-}
+
 
 
 #main{
@@ -30,6 +25,15 @@ position: fixed;
     background-color:#aaaaaa ;
     z-index: 10;
 }
+
+#button{
+  position: relative;
+        z-index: 11;
+        right: 5%;
+        bottom: 5%;
+        width: 10%
+    }
+
 #red{
     border-style: solid;
     border-width: 2px;
