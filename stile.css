@@ -74,6 +74,14 @@
     top:330px;
     width: 10%
 }
+#wood2{
+    border-style: solid;
+    border-width: 2px;
+    position:fixed;
+    right: 25px;
+    top:380px;
+    width: 10%
+}
 #metal{
     border-style: solid;
     border-width: 2px;
@@ -154,6 +162,11 @@ z-index:1;
 #woodText{
     position:fixed;
     top: 290px;
+    right: 70px;
+}
+#woodText2{
+    position:fixed;
+    top: 340px;
     right: 70px;
 }
 #metalText{

@@ -84,6 +84,10 @@
 			<div id="wood">
 				<img src="textures/Wood06_col.jpg" id="wood" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
 			</div>
+			<div id="woodText2"><h3>Wood2</h3></div>
+			<div id="wood2">
+				<img src="textures/Wood03_col.jpg" id="wood2" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
+			</div>
 
 			<div id="Secondario"><h2>Secondary</h2></div>
 			<div id="metalText"><h3>Metal</h3></div>
@@ -354,9 +358,35 @@
 						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 			};
 			
+			var diffuseMap2 = loadTexture( "textures/" + "Wood03_col.jpg" );
+			var roughnessMap2 = loadTexture( "textures/" + "Wood03_rgh.jpg" );
+			var normalMap2 = loadTexture( "textures/" + "Wood03_nrm.jpg" );
+
+			var textureUniforms2 = {
+						diffuseMap:	{ type: "t", value: diffuseMap2},
+						roughnessMap:	{ type: "t", value: roughnessMap2},
+						normalMap:	{ type: "t", value: normalMap2},
+						normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
+						pointLightPosition: {  value: [
+							new THREE.Vector3(70, 20, 70),
+							new THREE.Vector3(-70, 20, 70),
+							new THREE.Vector3(0, 20, -100),
+							]
+						 },
+						clight:	{ type: "v3", value: new THREE.Vector3( 1.0,   1.0,   1.0) },
+						spec_col:	{ type: "v3", value: new THREE.Vector3(0.12,  0.12,    0.12) },
+						ambientLight:	{ type: "v3", value: new THREE.Vector3() },
+						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
+			};
+
+
 			woodMaterial = new THREE.ShaderMaterial({uniforms: textureUniforms, vertexShader:vst ,fragmentShader:fst});
 			woodMaterial.extensions = { derivatives: true };
 			
+			woodMaterial2 = new THREE.ShaderMaterial({uniforms: textureUniforms2, vertexShader:vst ,fragmentShader:fst});
+			woodMaterial2.extensions = { derivatives: true };
+
+
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				model = object.scene.children[0];
@@ -519,6 +549,9 @@
 						break; 
 					case 'wood':
 						caseMaterial = woodMaterial;
+						break;
+					case 'wood2':
+						caseMaterial = woodMaterial2;
 						break;
 					case 'redMetal':
 						caseMaterial = redmetalMaterial;
