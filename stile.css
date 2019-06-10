@@ -1,8 +1,5 @@
 #main{
     position: relative;
-  
-    
-    width: 50%;
 }
 
 #slider {
@@ -19,103 +16,45 @@
     z-index: 10;
 }
 
+#case-bar{
+	z-index: 11;
+	position: absolute;
+	top: 10px;
+	display: none;
+}
+
+#dispenser-bar{
+	z-index: 11;
+	position: absolute;
+	top: 45px;
+	display: none;
+}
+
+#case-bar img{
+	width: 120px;
+	height: 25px;
+}
+
+#dispenser-bar img{
+	width: 120px;
+	height: 25px;
+}
+
+#change-case{
+	text-align: center;
+	width: 100%;
+}
+
+#change-dispenser{
+	text-align: center;
+	width: 100%;
+}
+
 #gui-button{
 	position: fixed;
         z-index: 11;
         right: 2%;
         bottom: 5%;
-}
-
-#red{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:80px;
-    width: 10%
-}
-#redMetal{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:130px;
-    width: 10%
-}
-#green{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:180px;
-    width: 10%
-}
-#blue{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:230px;
-    width: 10%
-}
-#blueMetal{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:280px;
-    width: 10%
-}
-#wood{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:330px;
-    width: 10%
-}
-#metal{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:480px;
-    width: 10%
-}
-#iron{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:530px;
-    width: 10%
-}
-#aluminium{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:580px;
-    width: 10%
-}
-#copper{
-    border-style: solid;
-    border-width: 2px;
-    position:fixed;
-    right: 25px;
-    top:630px;
-    width: 10%
-}
-
-#Secondario{
-    position:fixed;
-    top: 400px;
-    right: 40px;
-}
-
-#Principale{
-    position:fixed;
-    right: 40px;
 }
 
 #logo{

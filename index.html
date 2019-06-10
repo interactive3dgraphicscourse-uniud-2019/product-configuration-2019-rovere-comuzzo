@@ -44,65 +44,34 @@
 		<script src="libs/dat.gui.min.js"></script>
 		<!-- body -->
 		
-		<div id="slider"></div>
-		<div id="gui-button">
-		<input class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
-		</div>
-		<div id="logo"><img src="gui-images/Acme-logo.png" height="50" size="50"></div>
-		<div id="main">
-			
-
 		
-
+		<div id="navbar">
+		<nav>
+			<a href="home.html"><img src="gui-images/Acme-logo.png" height="30" /></a>
+		</nav> 
+		</div>
+		<div id="slider"></div>
+		<div>
+		<input id="gui-button" class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
+		</div>
+		<div id="main">
+		<div id="case-bar">
+			<img src="gui-images/red.jpg" id="red" onclick="selectedPrinMaterial(this.id)">
+			<img src="gui-images/redMetal.jpg" id="redMetal" onclick="selectedPrinMaterial(this.id)">
+			<img src="gui-images/green.jpg" id="green" onclick="selectedPrinMaterial(this.id)">
+			<img src="gui-images/blue.jpg" id="blue" onclick="selectedPrinMaterial(this.id)">
+			<img src="gui-images/blueMetal.jpg" id="blueMetal" onclick="selectedPrinMaterial(this.id)">
+			<img src="textures/Wood06_col.jpg" id="wood" onclick="selectedPrinMaterial(this.id)">
+		</div>
+		<div id="dispenser-bar">
+			<img src="gui-images/metal.jpg" id="metal" onclick="selectedSecMaterial(this.id)">
+			<img src="gui-images/iron.jpg" id="iron" onclick="selectedSecMaterial(this.id)">
+			<img src="gui-images/aluminium.jpg" id="aluminium" onclick="selectedSecMaterial(this.id)">
+			<img src="gui-images/copper.jpg" id="copper" onclick="selectedSecMaterial(this.id)">
+		</div>
 		<div id="colors">
-				
-			
-			<div id="Principale"><h2>Principale</h2></div>
-			<div id="redText"><h3>Plastic Red</h3></div>
-			<div id="red">
-					
-				<img src="gui-images/red.jpg" id="red" height="20" size="30"  onclick="selectedPrinMaterial(this.id)">
-				
-			</div>
-			<div id="metalRedText"><h3>Metal Red</h3></div>
-			<div id="redMetal">
-				<img src="gui-images/redMetal.jpg" id="redMetal" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
-			</div>
-			<div id="greenText"><h3>Plastic Green</h3></div>
-			<div id="green">
-				<img src="gui-images/green.jpg" id="green" height="20" size="30"  onclick="selectedPrinMaterial(this.id)">
-			</div>
-			<div id="blueText"><h3>Plastic Blue</h3></div>
-			<div id="blue">
-				<img src="gui-images/blue.jpg" id="blue" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
-			</div>
-			<div id="metalBlueText"><h3>Metal Blue</h3></div>
-			<div id="blueMetal">
-				<img src="gui-images/blueMetal.jpg" id="blueMetal" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
-			</div>
-			<div id="woodText"><h3>Wood</h3></div>
-			<div id="wood">
-				<img src="textures/Wood06_col.jpg" id="wood" height="20" size="30" onclick="selectedPrinMaterial(this.id)">
-			</div>
-
-			<div id="Secondario"><h2>Secondario</h2></div>
-			<div id="metalText"><h3>Metal</h3></div>
-			<div id="metal">
-				<img src="gui-images/metal.jpg" id="metal" height="20" size="30"  onclick="selectedSecMaterial(this.id)">
-			</div>
-			<div id="ironText"><h3>Iron</h3></div>
-			<div id="iron">
-				<img src="gui-images/iron.jpg" id="iron" height="20" size="30"  onclick="selectedSecMaterial(this.id)">				
-			</div>
-			<div id="aluminiumText"><h3>Aluminium</h3></div>
-			<div id="aluminium">
-				<img src="gui-images/aluminium.jpg" id="aluminium" height="20" size="30" onclick="selectedSecMaterial(this.id)">
-			</div>
-			<div id="copperText"><h3>Copper</h3></div>
-			<div id="copper">
-				<img src="gui-images/copper.jpg" id="copper" height="20" size="30" onclick="selectedSecMaterial(this.id)">
-			</div>
-			
+			<input id="change-case" class="ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
+			<input id="change-dispenser" class="ui-button ui-widget ui-corner-all" type="button" value="Select Dispenser" />
 		</div>
 		</div>
 		
@@ -408,7 +377,7 @@
 				
 				scene.add( light );
 				
-				$("body").prepend(renderer.domElement );
+				$("#main").append(renderer.domElement );
 				
 				$( "#slider" ).slider({
 					value: 350,
@@ -416,6 +385,11 @@
 					slide: slide,
 					change: slide
 				}).css({ "position": "fixed", "bottom": "2%", "left": "2%"});
+				$("#case-bar").css("left", Math.max(0, (($(window).width() - $("#case-bar").outerWidth()) / 2)) + "px");
+				$("#dispenser-bar").css("left", Math.max(0, (($(window).width() - $("#dispenser-bar").outerWidth()) / 2)) + "px");
+				
+				$("#change-case").on("click", function() { showMaterials(false) });
+				$("#change-dispenser").on("click", function() { showMaterials(true) });
 				
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight);
@@ -424,9 +398,8 @@
 				window.addEventListener("wheel", zoom, false);
 
 				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '70px';
+				stats.domElement.style.top = $("#navbar").height() + "px";
 				document.body.appendChild( stats.domElement );
-				document.getElementById('main').appendChild(renderer.domElement);
 			}
 
 			function onResize() {
@@ -458,24 +431,67 @@
 				}
 			}
 			
-			function updateGUIButton(){
-				if($("#gui-button").children().attr("value") == "Close"){
-					$("#gui-button").children().attr("value", "Open");
+			function updateCloseButton(){
+				const button = $("#gui-button");
+				if(button.attr("value") == "Close"){
+					button.attr("value", "Open");
 				} else {
-					$("#gui-button").children().attr("value", "Close");
+					button.attr("value", "Close");
 				}
-				$("#gui-button").children().attr("disabled", false);
+				button.attr("disabled", false);
 			}
 			
 			function changeGUIState(){
-				$("#gui-button").children().attr("disabled", true);
-				let options = {direction: "right"};
-				if($("#gui-button").children().attr("value") == "Close"){
-					$("#colors").hide("slide", options, 500, updateGUIButton);
+				const options = {direction: "right"};
+				const button = $("#gui-button");
+				button.attr("disabled", true);
+				if(button.attr("value") == "Close"){
+					$("#colors").hide("slide", options, 500, updateCloseButton);
 					$("#slider").animate({ "width":"96%" }, 500, "swing");
 				} else {
-					$("#colors").show("slide", options, 500, updateGUIButton);
+					$("#colors").show("slide", options, 500, updateCloseButton);
 					$("#slider").animate({ "width":"81%" }, 500, "swing");
+				}
+			}
+			
+			function buttonsToHide(dispenser){
+				let button;
+				if(dispenser){
+					button = "#change-dispenser";
+				} else {
+					button = "#change-case";
+				}
+				$(button).attr("value", "Hide Selector").off().on("click", 
+				function() { hideMaterials(dispenser) }).attr("disabled", false);
+			}
+			
+			function buttonsToChange(dispenser){
+				if(dispenser){
+					$("#change-dispenser").attr("value", "Select Dispenser").off().on(
+					"click", function(){ showMaterials(true) }).attr("disabled", false);
+				} else {
+					$("#change-case").attr("value", "Select Case").off().on(
+					"click", function(){ showMaterials(false) }).attr("disabled", false);
+				}
+			}
+			
+			function showMaterials(dispenser){
+				if(dispenser){
+					$("#change-dispenser").attr("disabled", true);
+					$("#dispenser-bar").show("fold", {}, 500, function() { buttonsToHide(dispenser) });
+				} else {
+					$("#change-case").attr("disabled", true);
+					$("#case-bar").show("fold", {}, 500, function() { buttonsToHide(dispenser) });
+				}
+			}
+			
+			function hideMaterials(dispenser){
+				if(dispenser){
+					$("#change-dispenser").attr("disabled", true);
+					$("#dispenser-bar").hide("fade", {}, 350, function() { buttonsToChange(dispenser); });
+				} else {
+					$("#change-case").attr("disabled", true);
+					$("#case-bar").hide("fade", {}, 350, function() { buttonsToChange(dispenser); });
 				}
 			}
 			
