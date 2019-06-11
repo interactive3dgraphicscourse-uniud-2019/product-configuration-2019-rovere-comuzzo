@@ -24,11 +24,38 @@
 
 
 
-#### 29/05/22019
+#### 28/05/2019
 
 - Abbiamo deciso di modificare il modello: abbiamo rimosso un pezzo e allungato lungo l'asse Y un altro pezzo
 
 
 
+#### 30/05/2019
 
+- Abbiamo aggiunto alcuni materiali per il case e per il dispenser e i relativi shader
 
+#### 31/05/2019
+
+- Abbiamo aggiunto uno slider per ruotare la camera attorno alla macchinetta
+
+- Abbiamo aggiunto la possibilità per zoom in/out
+
+  
+
+#### 04/06/2019
+
+- Abbiamo aggiunto un altro materiale(legno) e creato gli shader per tale materiale
+
+#### 05/06/2019
+
+- Abbiamo aggiunto un file css per una prima versione del layout della pagina e per l'interfaccia utente
+
+#### 08/06/2019
+
+- Abbiamo riscontrato un problema quando la pagina viene visualizzata sul browser "Chrome" e siamo riusciti a risolverlo
+
+#### 09/06/2019
+
+- Abbiamo creato una nuova versione dell'interfaccia utente 
+- .Abbiamo aggiunto un altro materiale(legno chiaro)
+- Abbiamo modificato gli shader per tutti i materiali aggiungendo tre luci
