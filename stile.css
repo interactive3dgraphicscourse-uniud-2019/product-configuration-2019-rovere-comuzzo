@@ -71,18 +71,21 @@
 #change-case{
 	text-align: center;
 	width: 100%;
+	font-size: 1.5vw;
 }
 
 #change-dispenser{
 	text-align: center;
 	width: 100%;
+	font-size: 1.5vw;
 }
 
 #gui-button{
 	position: fixed;
         z-index: 11;
         right: 2%;
-        bottom: 5%;
+		bottom: 5%;
+		font-size: 2vw;
 }
 #buy-button{
 		position: absolute;
@@ -104,5 +107,5 @@
 	left:65%;
 	height:4%;
 	margin: 2%;
-	font-size: 2vw;
+	font-size: 1.5vw;
 }
