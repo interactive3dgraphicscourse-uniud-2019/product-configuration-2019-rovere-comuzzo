@@ -69,19 +69,19 @@
 		</div>
 		<div id="main">
 		<div id="case-bar">
-			<img src="gui-images/red.jpg" id="red" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
-			<img src="gui-images/redMetal.jpg" id="redMetal" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
-			<img src="gui-images/green.jpg" id="green" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
-			<img src="gui-images/blue.jpg" id="blue" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
-			<img src="gui-images/blueMetal.jpg" id="blueMetal" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
-			<img src="textures/Wood06_col.jpg" id="wood" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
-			<img src="textures/Wood03_col.jpg" id="wood2" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="gui-images/red.jpg" id="red" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="gui-images/redMetal.jpg" id="redMetal" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="gui-images/green.jpg" id="green" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="gui-images/blue.jpg" id="blue" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="gui-images/blueMetal.jpg" id="blueMetal" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="textures/Wood06_col.jpg" id="wood" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="textures/Wood03_col.jpg" id="wood2" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
 		</div>
 		<div id="dispenser-bar">
-			<img src="gui-images/metal.jpg" id="metal" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
-			<img src="gui-images/iron.jpg" id="iron" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
-			<img src="gui-images/aluminium.jpg" id="aluminium" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
-			<img src="gui-images/copper.jpg" id="copper" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
+			<img src="gui-images/metal.jpg" id="metal" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
+			<img src="gui-images/iron.jpg" id="iron" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
+			<img src="gui-images/aluminium.jpg" id="aluminium" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
+			<img src="gui-images/copper.jpg" id="copper" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
 		</div>
 		<div id="colors">
 			<input id="change-case" class="ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
@@ -562,6 +562,14 @@
 				}
 				$("#price").text("Price: " + price + "$");
 			}
+			
+			function setCaseLabel(text){
+				$("#case").text("Case: " + text);
+			}
+			
+			function setDispenserLabel(text){
+				$("#dispenser").text("Dispenser: " + text);
+			}
 
 			function selectedPrinMaterial(selected){
 				switch(selected){
@@ -647,19 +655,7 @@
 			init();
 			update();
 			render();
-
-
-				
-			</script>
-		
-		<script>
-			function changeCase(testo){
-			$("#case").text("Case: " + testo);
-			}
-			function changeDisp(testo){
-				$("#dispenser").text("Dispenser: " + testo);
-			}
+			
 		</script>
-
 	</body>
 </html>
