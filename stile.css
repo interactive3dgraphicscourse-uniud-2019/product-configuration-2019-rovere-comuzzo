@@ -1,10 +1,38 @@
 #main{
     position: relative;
 }
+#nome{
+	margin: 2%;
+	top:0%;
+	left:10%;
+	height:4%;
+	font-size: 170%;
+}
+#case{
+	margin: 2%;
+	top:0%;
+	left:30%;
+	height:4%;
+	font-size: 170%;
+}
+#dispenser{
+	margin: 2%;
+	top:0%;
+	left:45%;
+	height:4%;
+	font-size: 170%;
+}
 
 #slider {
 	width: 81%;
 	z-index: 1;
+}
+#navbar ul li{
+	display: inline;
+
+}
+#navbar ul{
+	margin: 0px;
 }
 
 #colors{
@@ -56,10 +84,25 @@
         right: 2%;
         bottom: 5%;
 }
+#buy-button{
+		position: absolute;
+		
+		text-align: center;
+		z-index: 11;
+		width:10%;
+		background-color: red;
+		font-size: 180%;
+		color: white;
+		border-color: black;
+		border-width:2px;
+		border-style:solid;
+		right:0%
+}
 
-#logo{
-    position:fixed;
-left:0px;
-top:0px;
-z-index:1;
+#prezzo{
+	top:0%;
+	left:65%;
+	height:4%;
+	margin: 2%;
+	font-size: 170%;
 }
