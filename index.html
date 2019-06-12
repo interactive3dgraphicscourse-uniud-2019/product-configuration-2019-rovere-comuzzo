@@ -434,11 +434,12 @@
 					slide: slide,
 					change: slide
 				}).css({ "position": "fixed", "bottom": "2%", "left": "2%"});
-				$("#case-bar").css("left", Math.max(0, (($(window).width() - $("#case-bar").outerWidth()) / 2)) + "px");
-				$("#dispenser-bar").css("left", Math.max(0, (($(window).width() - $("#dispenser-bar").outerWidth()) / 2)) + "px");
+
 				$("#change-case").on("click", function() { showMaterials(false) });
 				$("#change-dispenser").on("click", function() { showMaterials(true) });
-				
+
+				posResElems();
+
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight);
 
@@ -454,6 +455,7 @@
 				renderer.setSize( window.innerWidth, window.innerHeight);
 				camera.aspect = ( window.innerWidth / window.innerHeight );
 				camera.updateProjectionMatrix();
+				posResElems();
 			}
 
 			function update() {
@@ -479,6 +481,11 @@
 				}
 			}
 			
+			function posResElems(){
+				$("#case-bar").css("left", Math.max(0, (($(window).width() - $("#case-bar").outerWidth()) / 2)) + "px");
+				$("#dispenser-bar").css("left", Math.max(0, (($(window).width() - $("#dispenser-bar").outerWidth()) / 2)) + "px");
+			}
+
 			function updateCloseButton(){
 				const button = $("#gui-button");
 				if(button.attr("value") == "Close"){
