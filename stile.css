@@ -6,21 +6,21 @@
 	top:0%;
 	left:10%;
 	height:4%;
-	font-size: 170%;
+	font-size: 2vw;
 }
 #case{
 	margin: 2%;
 	top:0%;
 	left:30%;
 	height:4%;
-	font-size: 170%;
+	font-size: 2vw;
 }
 #dispenser{
 	margin: 2%;
 	top:0%;
 	left:45%;
 	height:4%;
-	font-size: 170%;
+	font-size: 2vw;
 }
 
 #slider {
@@ -91,7 +91,7 @@
 		z-index: 11;
 		width:10%;
 		background-color: red;
-		font-size: 180%;
+		font-size: 2vw;
 		color: white;
 		border-color: black;
 		border-width:2px;
@@ -104,5 +104,5 @@
 	left:65%;
 	height:4%;
 	margin: 2%;
-	font-size: 170%;
+	font-size: 2vw;
 }
