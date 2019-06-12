@@ -52,7 +52,7 @@
 				<li id="nome">Macchinetta del caffè</li>
 				<li id="case">Case: wood</li>
 				<li id="dispenser">Dispenser: aluminium </li>
-				<li id="prezzo">Price: 170 </li>
+				<li id="price">Price: 170 </li>
 				
 				<li><a id="buy-button" href="home.html"> Buynow</a></li>
 			</ul>
@@ -69,19 +69,19 @@
 		</div>
 		<div id="main">
 		<div id="case-bar">
-			<img src="gui-images/red.jpg" id="red" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
-			<img src="gui-images/redMetal.jpg" id="redMetal" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
-			<img src="gui-images/green.jpg" id="green" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
-			<img src="gui-images/blue.jpg" id="blue" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
-			<img src="gui-images/blueMetal.jpg" id="blueMetal" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
-			<img src="textures/Wood06_col.jpg" id="wood" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
-			<img src="textures/Wood03_col.jpg" id="wood2" onclick="selectedPrinMaterial(this.id);changeCase(this.id); calcolaPrezzo();">
+			<img src="gui-images/red.jpg" id="red" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="gui-images/redMetal.jpg" id="redMetal" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="gui-images/green.jpg" id="green" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="gui-images/blue.jpg" id="blue" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="gui-images/blueMetal.jpg" id="blueMetal" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="textures/Wood06_col.jpg" id="wood" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
+			<img src="textures/Wood03_col.jpg" id="wood2" onclick="selectedPrinMaterial(this.id);changeCase(this.id); setPrice();">
 		</div>
 		<div id="dispenser-bar">
-			<img src="gui-images/metal.jpg" id="metal" onclick="selectedSecMaterial(this.id);changeDisp(this.id); calcolaPrezzo();">
-			<img src="gui-images/iron.jpg" id="iron" onclick="selectedSecMaterial(this.id);changeDisp(this.id); calcolaPrezzo();">
-			<img src="gui-images/aluminium.jpg" id="aluminium" onclick="selectedSecMaterial(this.id);changeDisp(this.id); calcolaPrezzo();">
-			<img src="gui-images/copper.jpg" id="copper" onclick="selectedSecMaterial(this.id);changeDisp(this.id); calcolaPrezzo();">
+			<img src="gui-images/metal.jpg" id="metal" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
+			<img src="gui-images/iron.jpg" id="iron" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
+			<img src="gui-images/aluminium.jpg" id="aluminium" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
+			<img src="gui-images/copper.jpg" id="copper" onclick="selectedSecMaterial(this.id);changeDisp(this.id); setPrice();">
 		</div>
 		<div id="colors">
 			<input id="change-case" class="ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
@@ -277,6 +277,7 @@
 		<!-- three.js code -->
 		
 		<script>
+			const ZERO_VEC3 = new THREE.Vector3(0, 0, 0);
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
 			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
 			var scene = new THREE.Scene();
@@ -550,6 +551,18 @@
 				}
 			}
 			
+			function setPrice(){
+				let price = 84.99;
+				if(!(caseMaterial.uniforms.diffuseMap == undefined)){ // woodlike plastic
+					price += 10;
+				} else if(caseMaterial.uniforms.cdiff.value.equals(ZERO_VEC3)){ // metal
+					price += 15;
+				} else { // plastic
+					price += 5;
+				}
+				$("#price").text("Price: " + price + "$");
+			}
+
 			function selectedPrinMaterial(selected){
 				switch(selected){
 					case 'red':
@@ -635,46 +648,7 @@
 			update();
 			render();
 
-		</script>
-		<script>
-				function calcolaPrezzo(){
-					var base=100;
-						if(caseMaterial==redMaterial){
-								 base += 20;
-						}
-						if(caseMaterial==redmetalMaterial){
-								base += 50;
-						}
-						if(caseMaterial==greenMaterial){
-								base += 20;
-						}
-						if(caseMaterial==blueMaterial){
-							base += 20;
-						}
-						if(caseMaterial==bluemetalMaterial){
-							base += 50;
-						}	
-						if(caseMaterial==woodMaterial){
-							base += 40;
-						}
-						if(caseMaterial==woodMaterial2){
-							base += 40;
-						}	
-						if(dispenserMaterial==metalMaterial){
-							base += 30;
-						}
-						if(dispenserMaterial==ironMaterial){
-							base += 25;
-						}
-						if(dispenserMaterial==aluminiumMaterial){
-							base += 20;
-						}
-						if(dispenserMaterial==copperMaterial){
-							base += 35;
-						}
-							
-						$("#prezzo").text("Price: " + base);
-					}
+
 				
 			</script>
 		
