@@ -73,7 +73,7 @@ const MATERIALS =
 				]
 				 } ,
 		},
-	ALLUMINIUM: {
+	ALUMINIUIM: {
 				cspec:	{ type: "v3", value: new THREE.Vector3(0.913, 0.922, 0.924) },
 				cdiff:	{ type: "v3", value: new THREE.Vector3(    0,     0,     0) },
 				clight:	{ type: "v3", value: new THREE.Vector3(  1.0,   1.0,   1.0) },

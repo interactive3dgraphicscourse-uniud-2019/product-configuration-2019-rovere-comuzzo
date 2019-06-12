@@ -52,7 +52,7 @@
 				<li id="nome">Macchinetta del caffè</li>
 				<li id="case">Case: wood</li>
 				<li id="dispenser">Dispenser: aluminium </li>
-				<li id="prezzo">Prezzo: 170 </li>
+				<li id="prezzo">Price: 170 </li>
 				
 				<li><a id="buy-button" href="home.html"> Buynow</a></li>
 			</ul>
@@ -293,7 +293,7 @@
 			whiteMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.WHITE, vertexShader: vs, fragmentShader: fs });
 			metalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.METAL, vertexShader: vs, fragmentShader: fs });
 			ironMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.IRON, vertexShader: vs, fragmentShader: fs });
-			aluminiumMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.aluminium, vertexShader: vs, fragmentShader: fs });
+			aluminiumMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.ALUMINIUIM, vertexShader: vs, fragmentShader: fs });
 			copperMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.COPPER, vertexShader: vs, fragmentShader: fs });
 			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
 			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
@@ -394,7 +394,7 @@
 							break;
 					}
 				});
-				updateMaterials(aluminiumMaterial, whiteMaterial, woodMaterial);
+				updateMaterials(metalMaterial, aluminiumMaterial, woodMaterial);
 				scene.add(model);
 			});
 			
@@ -579,7 +579,7 @@
 					default:
 						break;
 				}
-				updateMaterials(whiteMaterial, dispenserMaterial, caseMaterial);
+				updateMaterials(metalMaterial, dispenserMaterial, caseMaterial);
 			}
 
 			function selectedSecMaterial(selected){
@@ -599,7 +599,7 @@
 					default:
 						break;
 				}
-				updateMaterials( whiteMaterial, dispenserMaterial, caseMaterial);
+				updateMaterials( metalMaterial, dispenserMaterial, caseMaterial);
 			}
 
 			function updateMaterials(metal, dispenser, other){
@@ -676,7 +676,7 @@
 							base += 35;
 						}
 							
-						$("#prezzo").text("Prezzo: " + base);
+						$("#prezzo").text("Price: " + base);
 					}
 				
 			</script>
