@@ -298,16 +298,6 @@
 			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
 			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
 			
-			var loader = new THREE.CubeTextureLoader();
-				loader.setPath( 'textures/DallasW/' );
-
-			var textureCube = loader.load( [
-				'posx.jpg', 'negx.jpg',
-				'posy.jpg', 'negy.jpg',
-				'posz.jpg', 'negz.jpg'
-			] );
-
-			scene.background = textureCube;
 			var diffuseMap = loadTexture( "textures/" + "Wood06_col.jpg" );
 			var roughnessMap = loadTexture( "textures/" + "Wood06_rgh.jpg" );
 			var normalMap = loadTexture( "textures/" + "Wood06_nrm.jpg" );
