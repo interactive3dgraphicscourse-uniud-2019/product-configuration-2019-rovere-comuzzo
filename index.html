@@ -42,6 +42,7 @@
 		<script src="jquery-ui/jquery.js"></script>
 		<script src="jquery-ui/jquery-ui.min.js"></script>
 		<script src="libs/dat.gui.min.js"></script>
+		<script src='libs/tween.min.js'></script>
 		<!-- body -->
 		
 		
@@ -53,19 +54,13 @@
 				<li id="case">Case: wood</li>
 				<li id="dispenser">Dispenser: aluminium </li>
 				<li id="price">Price: 170 </li>
-				
 				<li><a id="buy-button" href="home.html"> Buynow</a></li>
 			</ul>
 		</nav> 
-
 		</div>
-		
-	
-		
 		<div id="slider"></div>
 		<div>
 		<input id="gui-button" class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
-		
 		</div>
 		<div id="main">
 		<div id="case-bar">
@@ -86,6 +81,7 @@
 		<div id="colors">
 			<input id="change-case" class="ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
 			<input id="change-dispenser" class="ui-button ui-widget ui-corner-all" type="button" value="Select Dispenser" />
+			<input id="holder" class="ui-button ui-widget ui-corner-all" type="button" value="Without Holder" />
 		</div>
 		</div>
 		
@@ -326,6 +322,9 @@
 			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
 			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
 			
+			var holder;
+			var plane;
+			
 			var diffuseMap = loadTexture( "textures/" + "Wood06_col.jpg" );
 			var roughnessMap = loadTexture( "textures/" + "Wood06_rgh.jpg" );
 			var normalMap = loadTexture( "textures/" + "Wood06_nrm.jpg" );
@@ -394,6 +393,7 @@
 					switch(child.name){
 						case 'Null':
 							child.remove(child.children[2]);
+							holder = child;
 							break;
 						case 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0':
 							child.visible = false;
@@ -453,7 +453,7 @@
 
 				var planeMaterial = new THREE.ShaderMaterial({uniforms: PLANE_UNIFORMS, vertexShader: vsp, fragmentShader: fsp});
 				planeMaterial.extensions = { derivatives: true };
-				var plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), planeMaterial);
+				plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), planeMaterial);
 				scene.add( plane );
 				plane.rotation.x = -90 * Math.PI/180;
 				scene.add( cameraPivot );
@@ -473,6 +473,7 @@
 
 				$("#change-case").on("click", function() { showMaterials(false) });
 				$("#change-dispenser").on("click", function() { showMaterials(true) });
+				$("#holder").on("click", hideHolder);
 
 				posResElems();
 
@@ -497,6 +498,7 @@
 			function update() {
 				requestAnimationFrame( update );
 				stats.update();
+				TWEEN.update();
 				render();
 			}
 
@@ -584,6 +586,57 @@
 					$("#change-case").attr("disabled", true);
 					$("#case-bar").hide("fade", {}, 350, function() { buttonsToChange(dispenser); });
 				}
+			}
+			
+			function onHolderHidden(){
+				holder.visible = false;
+				$("#holder").attr("value", "With Holder").off().on("click", 
+					showHolder ).attr("disabled", false);
+			}
+			
+			function onHolderShown(){
+				$("#holder").attr("value", "Without Holder").off().on("click", 
+					hideHolder ).attr("disabled", false);
+			}
+			
+			function hideHolder(){
+				$("#holder").attr("disabled", true);
+				let position = {x : holder.position.x};
+				let tweenPosition = new TWEEN.Tween(position).to({x : holder.position.x - 900}, 2500);
+				tweenPosition.onUpdate(function(){ 
+					holder.position.x = position.x; 
+				});
+				tweenPosition.onComplete(onHolderHidden);
+				tweenPosition.easing(TWEEN.Easing.Cubic.InOut);
+				let holder_shadow = {s : 1.0};
+				let tweenShadow = new TWEEN.Tween(holder_shadow).to({s : 0.0}, 1000);
+				tweenShadow.onUpdate(function(){ 
+					plane.material.uniforms.holder.value = holder_shadow.s; 
+				});
+				tweenShadow.easing(TWEEN.Easing.Cubic.InOut);
+				tweenPosition.start();
+				tweenShadow.start();
+			}
+			
+			function showHolder(){
+				$("#holder").attr("disabled", true);
+				holder.visible = true;
+				let position = {x : holder.position.x};
+				let tweenPosition = new TWEEN.Tween(position).to({x : holder.position.x + 900}, 2500);
+				tweenPosition.onUpdate(function(){ 
+					holder.position.x = position.x; 
+				});
+				tweenPosition.onComplete(onHolderShown);
+				tweenPosition.easing(TWEEN.Easing.Cubic.InOut);
+				let holder_shadow = {s : 0.0};
+				let tweenShadow = new TWEEN.Tween(holder_shadow).to({s : 1.0}, 800);
+				tweenShadow.onUpdate(function(){ 
+					plane.material.uniforms.holder.value = holder_shadow.s; 
+				});
+				tweenShadow.easing(TWEEN.Easing.Cubic.InOut);
+				tweenShadow.delay(1700);
+				tweenPosition.start();
+				tweenShadow.start();
 			}
 			
 			function setPrice(){

@@ -80,6 +80,12 @@
 	font-size: 1.5vw;
 }
 
+#holder{
+	text-align: center;
+	width: 100%;
+	font-size: 1.5vw;
+}
+
 #gui-button{
 	position: fixed;
         z-index: 11;
