@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<link href="stile.css" rel="stylesheet" type="text/css">
-		<title>product-configuration</title>
+		<title>ACME - NuclearCoffee 300</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link href="jquery-ui/jquery-ui.css" rel="stylesheet">
@@ -38,7 +38,6 @@
 		<script src="libs/stats.min.js"></script>
 		<script src="libs/OrbitControls.js"></script>
 		<script src="libs/GLTFLoader.js"></script>
-		<script src="materials.js"></script>
 		<script src="jquery-ui/jquery.js"></script>
 		<script src="jquery-ui/jquery-ui.min.js"></script>
 		<script src="libs/dat.gui.min.js"></script>
@@ -297,92 +296,28 @@
 		<!-- three.js code -->
 		
 		<script>
-			const ZERO_VEC3 = new THREE.Vector3(0, 0, 0);
+			const VS = document.getElementById("vertex").textContent;
+			const FS = document.getElementById("fragment").textContent;
+			
+			const VST = document.getElementById("texture-vertex").textContent;
+			const FST = document.getElementById("texture-fragment").textContent;
+
+			const VSP = document.getElementById("plane-vertex").textContent;
+			const FSP = document.getElementById("plane-fragment").textContent;
+		</script>
+
+		<script src="materials.js"></script>
+
+		<script>
+			var caseMaterial = MATERIALS.RED.M;
+			var dispenserMaterial = MATERIALS.METAL.M;
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
 			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
 			var scene = new THREE.Scene();
 				
-			vs = document.getElementById("vertex").textContent;
-			fs = document.getElementById("fragment").textContent;
-			
-			vst = document.getElementById("texture-vertex").textContent;
-			fst = document.getElementById("texture-fragment").textContent;
-
-			vsp = document.getElementById("plane-vertex").textContent;
-			fsp = document.getElementById("plane-fragment").textContent;
-		
-			redMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.RED, vertexShader: vs, fragmentShader: fs });
-			blueMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUE, vertexShader: vs, fragmentShader: fs });
-			greenMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.GREEN, vertexShader: vs, fragmentShader: fs });
-			whiteMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.WHITE, vertexShader: vs, fragmentShader: fs });
-			metalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.METAL, vertexShader: vs, fragmentShader: fs });
-			ironMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.IRON, vertexShader: vs, fragmentShader: fs });
-			aluminiumMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.ALUMINIUIM, vertexShader: vs, fragmentShader: fs });
-			copperMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.COPPER, vertexShader: vs, fragmentShader: fs });
-			bluemetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.BLUEMETAL, vertexShader: vs, fragmentShader: fs });
-			redmetalMaterial = new THREE.ShaderMaterial({ uniforms: MATERIALS.REDMETAL, vertexShader: vs, fragmentShader: fs });
-			
 			var holder;
 			var plane;
 			
-			var diffuseMap = loadTexture( "textures/" + "Wood06_col.jpg" );
-			var roughnessMap = loadTexture( "textures/" + "Wood06_rgh.jpg" );
-			var normalMap = loadTexture( "textures/" + "Wood06_nrm.jpg" );
-			
-			var textureUniforms = {
-						diffuseMap:	{ type: "t", value: diffuseMap},
-						roughnessMap:	{ type: "t", value: roughnessMap},
-						normalMap:	{ type: "t", value: normalMap},
-						normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-						pointLightPosition: {  value: [
-							new THREE.Vector3(70, 20, 70),
-							new THREE.Vector3(-70, 20, 70),
-							new THREE.Vector3(0, 20, -100),
-							]
-						 },
-						clight:	{ type: "v3", value: new THREE.Vector3( 1.0,   1.0,   1.0) },
-						spec_col:	{ type: "v3", value: new THREE.Vector3(0.12,  0.12,    0.12) },
-						ambientLight:	{ type: "v3", value: new THREE.Vector3() },
-						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
-			};
-			
-			var diffuseMap2 = loadTexture( "textures/" + "Wood03_col.jpg" );
-			var roughnessMap2 = loadTexture( "textures/" + "Wood03_rgh.jpg" );
-			var normalMap2 = loadTexture( "textures/" + "Wood03_nrm.jpg" );
-
-			var textureUniforms2 = {
-						diffuseMap:	{ type: "t", value: diffuseMap2},
-						roughnessMap:	{ type: "t", value: roughnessMap2},
-						normalMap:	{ type: "t", value: normalMap2},
-						normalScale: {type: "v2", value: new THREE.Vector2(1,1)},
-						pointLightPosition: {  value: [
-							new THREE.Vector3(70, 20, 70),
-							new THREE.Vector3(-70, 20, 70),
-							new THREE.Vector3(0, 20, -100),
-							]
-						 },
-						clight:	{ type: "v3", value: new THREE.Vector3( 1.0,   1.0,   1.0) },
-						spec_col:	{ type: "v3", value: new THREE.Vector3(0.12,  0.12,    0.12) },
-						ambientLight:	{ type: "v3", value: new THREE.Vector3() },
-						textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
-			};
-			
-			var ao = loadTexture( "textures/aomap_plane_1.png" );
-			var aoNoHolder = loadTexture( "textures/aomap_plane_2.png" );
-			
-			const PLANE_UNIFORMS = {
-				aoMap:	{ type: "t", value: ao},
-				aoMapNoHolder:	{ type: "t", value: aoNoHolder},
-				holder: { type: "f", value: 1.0 }
-			};
-
-			woodMaterial = new THREE.ShaderMaterial({uniforms: textureUniforms, vertexShader:vst ,fragmentShader:fst});
-			woodMaterial.extensions = { derivatives: true };
-			woodMaterial2 = new THREE.ShaderMaterial({uniforms: textureUniforms2, vertexShader:vst ,fragmentShader:fst});
-			woodMaterial2.extensions = { derivatives: true };
-			caseMaterial = woodMaterial;
-			dispenserMaterial = aluminiumMaterial;
-
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				model = object.scene.children[0];
@@ -421,23 +356,11 @@
 							break;
 					}
 				});
-				updateMaterials(metalMaterial, aluminiumMaterial, woodMaterial);
+				updateMaterials(MATERIALS.METAL.M, MATERIALS.ALUMINIUM.M, MATERIALS.DARKWOOD.M);
 				scene.add(model);
 			});
 			
 			var stats = new Stats();
-		
-			function loadTexture(file) {
-				var texture = new THREE.TextureLoader().load( file , function ( texture ) {
-					texture.minFilter = THREE.LinearMipMapLinearFilter;
-					texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-					texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-			  		texture.offset.set( 0, 0 );
-					texture.needsUpdate = true;
-					render();
-				} )
-				return texture;
-			}
 
 			var cameraPivot= new THREE.Object3D(0,0,0);
 			var cameraDir;
@@ -446,14 +369,12 @@
 				renderer.setClearColor( 0xffffff );
 				
 				cameraPivot.add(camera);
-				camera.position.set( 0, 6 , 12 );
-				camera.lookAt(0,2,0);
+				camera.position.set( 0, 6, 14 );
+				camera.lookAt(0,3,0);
 				cameraDir = new THREE.Vector3(0, 10, 20 );
 				cameraDir.normalize();
 
-				var planeMaterial = new THREE.ShaderMaterial({uniforms: PLANE_UNIFORMS, vertexShader: vsp, fragmentShader: fsp});
-				planeMaterial.extensions = { derivatives: true };
-				plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), planeMaterial);
+				plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), MATERIALS.PLANE.M);
 				scene.add( plane );
 				plane.rotation.x = -90 * Math.PI/180;
 				scene.add( cameraPivot );
@@ -643,7 +564,7 @@
 				let price = 84.99;
 				if(!(caseMaterial.uniforms.diffuseMap == undefined)){ // woodlike plastic
 					price += 10;
-				} else if(caseMaterial.uniforms.cdiff.value.equals(ZERO_VEC3)){ // metal
+				} else if(caseMaterial.uniforms.cdiff.value.equals(ZEROS)){ // metal
 					price += 15;
 				} else { // plastic
 					price += 5;
@@ -662,50 +583,50 @@
 			function selectedPrinMaterial(selected){
 				switch(selected){
 					case 'red':
-						caseMaterial = redMaterial;
+						caseMaterial = MATERIALS.RED.M;
 						break;
 					case 'green':
-						caseMaterial = greenMaterial;
+						caseMaterial = MATERIALS.GREEN.M;
 						break;
 					case 'blue':
-						caseMaterial = blueMaterial;
+						caseMaterial = MATERIALS.BLUE.M;
 						break; 
 					case 'wood':
-						caseMaterial = woodMaterial;
+						caseMaterial = MATERIALS.DARKWOOD.M;
 						break;
 					case 'wood2':
-						caseMaterial = woodMaterial2;
+						caseMaterial = MATERIALS.LIGHTWOOD.M;
 						break;
 					case 'redMetal':
-						caseMaterial = redmetalMaterial;
+						caseMaterial = MATERIALS.REDMETAL.M;
 						break;
 					case 'blueMetal':
-						caseMaterial = bluemetalMaterial;
+						caseMaterial = MATERIALS.BLUEMETAL.M;
 						break;
 					default:
 						break;
 				}
-				updateMaterials(metalMaterial, dispenserMaterial, caseMaterial);
+				updateMaterials(MATERIALS.METAL.M, dispenserMaterial, caseMaterial);
 			}
 
 			function selectedSecMaterial(selected){
 				switch(selected){
 					case 'metal':
-						dispenserMaterial = metalMaterial;
+						dispenserMaterial = MATERIALS.METAL.M;
 						break;
 					case 'iron':
-						dispenserMaterial = ironMaterial;
+						dispenserMaterial = MATERIALS.IRON.M;
 						break;
 					case 'aluminium':
-						dispenserMaterial = aluminiumMaterial;
+						dispenserMaterial = MATERIALS.ALUMINIUM.M;
 						break; 
 					case 'copper':
-						dispenserMaterial = copperMaterial;
+						dispenserMaterial = MATERIALS.COPPER.M;
 						break;
 					default:
 						break;
 				}
-				updateMaterials( metalMaterial, dispenserMaterial, caseMaterial);
+				updateMaterials( MATERIALS.METAL.M, dispenserMaterial, caseMaterial);
 			}
 
 			function updateMaterials(metal, dispenser, other){
