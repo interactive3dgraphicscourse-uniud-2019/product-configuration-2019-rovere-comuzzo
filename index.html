@@ -50,10 +50,10 @@
 			<ul>
 				<li><a href="home.html"><img src="gui-images/Acme-logo.png" height="30" /></a> </li>
 				<li id="nome">NuclearCoffee 3000</li>
-				<li id="case">Case: wood</li>
-				<li id="dispenser">Dispenser: aluminium </li>
-				<li id="price">Price: 170 </li>
-				<li><a id="buy-button" href="home.html"> Buynow</a></li>
+				<li id="case"></li>
+				<li id="dispenser"></li>
+				<li id="price"></li>
+				<li><a id="buy-button" > Buynow</a></li>
 			</ul>
 		</nav> 
 		</div>
@@ -63,19 +63,19 @@
 		</div>
 		<div id="main">
 		<div id="case-bar">
-			<img src="gui-images/red.jpg" id="red" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
-			<img src="gui-images/redMetal.jpg" id="redMetal" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
-			<img src="gui-images/green.jpg" id="green" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
-			<img src="gui-images/blue.jpg" id="blue" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
-			<img src="gui-images/blueMetal.jpg" id="blueMetal" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
-			<img src="textures/Wood06_col.jpg" id="wood" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
-			<img src="textures/Wood03_col.jpg" id="wood2" onclick="selectedPrinMaterial(this.id);setCaseLabel(this.id); setPrice();">
+			<img src="gui-images/red.jpg" id="RED" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/redMetal.jpg" id="REDMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/green.jpg" id="GREEN" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/blue.jpg" id="BLUE" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/blueMetal.jpg" id="BLUEMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			<img src="textures/Wood06_col.jpg" id="DARKWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			<img src="textures/Wood03_col.jpg" id="LIGHTWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
 		</div>
 		<div id="dispenser-bar">
-			<img src="gui-images/metal.jpg" id="metal" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
-			<img src="gui-images/iron.jpg" id="iron" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
-			<img src="gui-images/aluminium.jpg" id="aluminium" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
-			<img src="gui-images/copper.jpg" id="copper" onclick="selectedSecMaterial(this.id);setDispenserLabel(this.id); setPrice();">
+			<img src="gui-images/metal.jpg" id="METAL" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/iron.jpg" id="IRON" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/aluminium.jpg" id="ALUMINIUM" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+			<img src="gui-images/copper.jpg" id="COPPER" onclick="setDispenserMaterial(MATERIALS[this.id]);">
 		</div>
 		<div id="colors">
 			<input id="change-case" class="ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
@@ -309,14 +309,11 @@
 		<script src="materials.js"></script>
 
 		<script>
-			var caseMaterial = MATERIALS.RED.M;
-			var dispenserMaterial = MATERIALS.METAL.M;
+			var caseId, dispenserId, holder, plane, cameraDir;
+			
 			var renderer = new THREE.WebGLRenderer( { antialias: true } );
 			var camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 1000 );
 			var scene = new THREE.Scene();
-				
-			var holder;
-			var plane;
 			
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
@@ -356,14 +353,15 @@
 							break;
 					}
 				});
-				updateMaterials(MATERIALS.METAL.M, MATERIALS.ALUMINIUM.M, MATERIALS.DARKWOOD.M);
+				setMetalMaterial(MATERIALS.METAL);
+				setDispenserMaterial(MATERIALS.ALUMINIUM);
+				setOthersMaterial(MATERIALS.DARKWOOD);
 				scene.add(model);
 			});
 			
 			var stats = new Stats();
 
-			var cameraPivot= new THREE.Object3D(0,0,0);
-			var cameraDir;
+			var cameraPivot = new THREE.Object3D(0,0,0);
 
 			function init() {
 				renderer.setClearColor( 0xffffff );
@@ -511,6 +509,8 @@
 			
 			function onHolderHidden(){
 				holder.visible = false;
+				setPrice();
+				setBuyRef();
 				$("#holder").attr("value", "With Holder").off().on("click", 
 					showHolder ).attr("disabled", false);
 			}
@@ -542,6 +542,8 @@
 			function showHolder(){
 				$("#holder").attr("disabled", true);
 				holder.visible = true;
+				setPrice();
+				setBuyRef();
 				let position = {x : holder.position.x};
 				let tweenPosition = new TWEEN.Tween(position).to({x : holder.position.x + 900}, 2500);
 				tweenPosition.onUpdate(function(){ 
@@ -561,75 +563,56 @@
 			}
 			
 			function setPrice(){
-				let price = 84.99;
-				if(!(caseMaterial.uniforms.diffuseMap == undefined)){ // woodlike plastic
-					price += 10;
-				} else if(caseMaterial.uniforms.cdiff.value.equals(ZEROS)){ // metal
-					price += 15;
-				} else { // plastic
-					price += 5;
+				if(caseId == undefined || holder == undefined){
+					return;
 				}
-				$("#price").text("Price: " + price + "$");
+				let price = 69.99;
+				let overprice_holder = 1;
+				if(holder.visible){
+					overprice_holder = 2;
+				}
+				if(caseId.includes("Metal")){
+					price += 15 * overprice_holder;
+				} else if(caseId.includes("Plastic")){
+					price += 5 * overprice_holder;
+				} else { // Wood
+					price += 10 * overprice_holder;
+				}
+				$("#price").text("Price: " + (""+price).substr(0, 5) + "$");
+			}
+
+			
+			function setBuyRef(){
+				if(dispenserId == undefined || caseId == undefined || holder == undefined){
+					return;
+				}
+				$("#buy-button").attr("href", "buy?id=61&case=" + caseId.replace(" ", "_")
+					+ "&dispenser=" + dispenserId + "&holder=" + holder.visible);
 			}
 			
-			function setCaseLabel(text){
-				$("#case").text("Case: " + text);
-			}
-			
-			function setDispenserLabel(text){
-				$("#dispenser").text("Dispenser: " + text);
-			}
-
-			function selectedPrinMaterial(selected){
-				switch(selected){
-					case 'red':
-						caseMaterial = MATERIALS.RED.M;
-						break;
-					case 'green':
-						caseMaterial = MATERIALS.GREEN.M;
-						break;
-					case 'blue':
-						caseMaterial = MATERIALS.BLUE.M;
-						break; 
-					case 'wood':
-						caseMaterial = MATERIALS.DARKWOOD.M;
-						break;
-					case 'wood2':
-						caseMaterial = MATERIALS.LIGHTWOOD.M;
-						break;
-					case 'redMetal':
-						caseMaterial = MATERIALS.REDMETAL.M;
-						break;
-					case 'blueMetal':
-						caseMaterial = MATERIALS.BLUEMETAL.M;
-						break;
-					default:
-						break;
+			function setMetalMaterial(metal){
+				if(model == undefined){
+					return;
 				}
-				updateMaterials(MATERIALS.METAL.M, dispenserMaterial, caseMaterial);
+				model.traverse(function(child){
+					if(child.isMesh){
+						switch(child.name){
+							case 'Zylinder_1_Chrome_0':
+							case 'Scheibe_Extrudieren_Car_Paint_-_Cherry_Metallic_0':
+							case 'Scheibe_Extrudieren__0':
+							case 'Zylinder_Chrome_0':
+							case 'Zylinder_2_Extrudieren1_0':
+							case 'Zylinder_3_Chrome_0':
+								child.material = metal.M;
+								break;
+							default:
+								break;
+						}
+					}
+				});
 			}
 
-			function selectedSecMaterial(selected){
-				switch(selected){
-					case 'metal':
-						dispenserMaterial = MATERIALS.METAL.M;
-						break;
-					case 'iron':
-						dispenserMaterial = MATERIALS.IRON.M;
-						break;
-					case 'aluminium':
-						dispenserMaterial = MATERIALS.ALUMINIUM.M;
-						break; 
-					case 'copper':
-						dispenserMaterial = MATERIALS.COPPER.M;
-						break;
-					default:
-						break;
-				}
-				updateMaterials( MATERIALS.METAL.M, dispenserMaterial, caseMaterial);
-			}
-
-			function updateMaterials(metal, dispenser, other){
+			function setOthersMaterial(other){
 				if(model == undefined){
 					return;
 				}
@@ -639,26 +622,49 @@
 							case 'Tropfschahle_Car_Paint_-_Cherry_Metallic_0':
 							case 'Extrudieren_Extrudieren_0':
 							case 'Extrudieren_2_Extrudieren1_0':
-								break;
 							case 'Rahmen_Chrome_0':
 							case 'Sweep_1_Car_Paint_-_White_Solid_0':
 							case 'Blech_Extrudieren_1_Chrome_0':
-								child.material = dispenser;
-								break;
 							case 'Zylinder_1_Chrome_0':
 							case 'Scheibe_Extrudieren_Car_Paint_-_Cherry_Metallic_0':
 							case 'Scheibe_Extrudieren__0':
 							case 'Zylinder_Chrome_0':
 							case 'Zylinder_2_Extrudieren1_0':
 							case 'Zylinder_3_Chrome_0':
-								child.material = metal;
 								break;
 							default:
-								child.material = other;
+								child.material = other.M;
 								break;
 						}
 					}
 				});
+				$("#case").text("Case: " + other.NAME);
+				caseId = other.NAME;
+				setPrice();
+				setBuyRef();
+			}
+			
+			function setDispenserMaterial(dispenser){
+				if(model == undefined){
+					return;
+				}
+				model.traverse(function(child){
+					if(child.isMesh){
+						switch(child.name){
+							case 'Rahmen_Chrome_0':
+							case 'Sweep_1_Car_Paint_-_White_Solid_0':
+							case 'Blech_Extrudieren_1_Chrome_0':
+								child.material = dispenser.M;
+								break;
+							default:
+								break;
+						}
+					}
+				});
+				$("#dispenser").text("Dispenser: " + dispenser.NAME);
+				dispenserId = dispenser.NAME;
+				setPrice();
+				setBuyRef();
 			}
 
 			init();

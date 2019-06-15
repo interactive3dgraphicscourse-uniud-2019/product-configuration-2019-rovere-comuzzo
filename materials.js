@@ -163,11 +163,11 @@ MATERIALS =
 		M: new THREE.ShaderMaterial({ uniforms: UNIFORMS.REDMETAL, vertexShader: VS, fragmentShader: FS })
 	},
 	DARKWOOD: {
-		NAME: "Plastic Wood Dark",
+		NAME: "Woodlike Dark",
 		M: new THREE.ShaderMaterial({uniforms: UNIFORMS.DARKWOOD, vertexShader:VST ,fragmentShader:FST})
 	},
 	LIGHTWOOD: {
-		NAME: "Plastic Wood Light",
+		NAME: "Woodlike Light",
 		M: new THREE.ShaderMaterial({uniforms: UNIFORMS.LIGHTWOOD, vertexShader:VST ,fragmentShader:FST})
 	},
 	PLANE: {
