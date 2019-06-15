@@ -1,0 +1,122 @@
+@font-face {
+   font-family: Berkshire; 
+   src: url('fonts/BerkshireSwash-Regular.ttf');
+} 
+
+#main{
+    position: relative;
+}
+
+#navbar{
+	border-bottom: 2px solid #f5ad66;
+	background-color: #D0D0D0;
+}
+
+#navbar ul{
+	margin: 0px;
+}
+
+#navbar ul li{
+	display: inline;
+
+}
+
+.nav-label{
+	font-family: Berkshire;
+	margin: 2%;
+	font-size: 1.5vw;
+}
+
+#buy-button{
+		text-align: center;
+		z-index: 11;
+		background-color: red;
+		font-size: 1.5vw;
+		color: white;
+		border-color: black;
+		border-width:2px;
+		border-style:solid;
+}
+
+#colors{
+    position: fixed;
+    right: 0px;
+	bottom: 0px;
+    width: 15%;
+    background-color: #D0D0D0;
+    z-index: 10;
+	text-align: center;
+	border-radius: 9px;
+	border-top: 2px solid #f5ad66;
+	border-left: 2px solid #f5ad66;
+}
+
+#case-bar{
+	top: 10px;
+	
+}
+
+.sel-bar{
+	z-index: 11;
+	position: absolute;
+	display: none;
+	background-color: black;
+	border: 2px solid black;
+	border-radius: 4px;
+}
+
+.sel-bar img{
+	width: 120px;
+	height: 25px;
+	vertical-align: middle;
+	margin: 2px;
+}
+
+.sel-bar img:hover{
+	-webkit-filter: contrast(150%); /* Safari 6.0 - 9.0 */
+	filter: contrast(150%);
+	-webkit-filter: brightness(150%); /* Safari */
+	filter: brightness(150%);
+}
+
+
+#change-case{
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 0px;
+	margin-top: 10px;
+	width: 95%;
+	font-size: 1vw;
+}
+
+#change-dispenser{
+	width: 95%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 0px;
+	font-size: 1vw;
+}
+
+#holder{
+	width: 95%;
+	margin-right: auto;
+	margin-left: auto;
+	margin-bottom: 0px;
+	font-size: 1vw;
+}
+
+#gui-button{
+	position: absolute;
+	z-index: 11;
+	right: 0px;
+	width: 14.25%;
+	margin-right: 0.375%;
+	font-size: 1vw;
+}
+
+#slider {
+	width: 81%;
+	z-index: 1;
+}
+
+

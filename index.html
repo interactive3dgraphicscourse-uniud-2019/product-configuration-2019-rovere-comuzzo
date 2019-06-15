@@ -48,20 +48,16 @@
 		<nav>
 			<ul>
 				<li><a href="home.html"><img src="gui-images/Acme-logo.png" height="30" /></a> </li>
-				<li id="nome">NuclearCoffee 3000</li>
-				<li id="case"></li>
-				<li id="dispenser"></li>
-				<li id="price"></li>
-				<li><a id="buy-button" > Buynow</a></li>
+				<li id="name" class="nav-label" >NuclearCoffee 3000</li>
+				<li><a id="buy-button" > Buy Now!</a></li>
+				<li id="price" class="nav-label"></li> 
+				<li id="case" class="nav-label" ></li>
+				<li id="dispenser" class="nav-label" ></li>
 			</ul>
 		</nav> 
 		</div>
-		<div id="slider"></div>
-		<div>
-		<input id="gui-button" class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
-		</div>
 		<div id="main">
-		<div id="case-bar">
+		<div id="case-bar" class="sel-bar" >
 			<img src="gui-images/red.jpg" id="RED" onclick="setOthersMaterial(MATERIALS[this.id]);">
 			<img src="gui-images/redMetal.jpg" id="REDMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
 			<img src="gui-images/green.jpg" id="GREEN" onclick="setOthersMaterial(MATERIALS[this.id]);">
@@ -70,18 +66,22 @@
 			<img src="textures/Wood06_col.jpg" id="DARKWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
 			<img src="textures/Wood03_col.jpg" id="LIGHTWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
 		</div>
-		<div id="dispenser-bar">
+		<div id="dispenser-bar" class="sel-bar" >
 			<img src="gui-images/metal.jpg" id="METAL" onclick="setDispenserMaterial(MATERIALS[this.id]);">
 			<img src="gui-images/iron.jpg" id="IRON" onclick="setDispenserMaterial(MATERIALS[this.id]);">
 			<img src="gui-images/aluminium.jpg" id="ALUMINIUM" onclick="setDispenserMaterial(MATERIALS[this.id]);">
 			<img src="gui-images/copper.jpg" id="COPPER" onclick="setDispenserMaterial(MATERIALS[this.id]);">
 		</div>
 		<div id="colors">
-			<input id="change-case" class="ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
+			<input id="change-case" class=" ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
 			<input id="change-dispenser" class="ui-button ui-widget ui-corner-all" type="button" value="Select Dispenser" />
 			<input id="holder" class="ui-button ui-widget ui-corner-all" type="button" value="Without Holder" />
 		</div>
 		</div>
+		<input id="gui-button" class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
+		</div>
+		<div id="slider"></div>
+		<div>
 		
 		<!-- shaders -->
 
@@ -438,8 +438,24 @@
 			}
 			
 			function posResElems(){
-				$("#case-bar").css("left", Math.max(0, (($(window).width() - $("#case-bar").outerWidth()) / 2)) + "px");
-				$("#dispenser-bar").css("left", Math.max(0, (($(window).width() - $("#dispenser-bar").outerWidth()) / 2)) + "px");
+				$(".sel-bar img").each(function(){
+					const width = Math.floor($(window).width() >> 4);
+					const height = Math.floor(width / 5);
+					$(this).css("width", width);
+					$(this).css("height", height);
+				});
+				const caseBar = $("#case-bar");
+				const dispenserBar = $("#dispenser-bar");
+				caseBar.css("left", Math.max(0, (($(window).width() - caseBar.outerWidth()) / 2)) + "px");
+				dispenserBar.css("left", Math.max(0, (($(window).width() - dispenserBar.outerWidth()) / 2)) + "px");
+				dispenserBar.css("top", 10 + caseBar.outerHeight() + 10);
+				const close_bottom = $(window).height() - $("#slider").offset().top + 30;
+				const close = $("#gui-button");
+				close.css("bottom", close_bottom);
+				const close_top = $(window).height() - close.offset().top;
+				const menu = $("#colors");
+				const buttons_height = Math.max(70, $("#change-case").outerHeight() + $("#change-dispenser").outerHeight() + $("#holder").outerHeight() + 10);
+				$("#colors").css("height", buttons_height + close_top);
 			}
 
 			function updateCloseButton(){
@@ -457,10 +473,10 @@
 				const button = $("#gui-button");
 				button.attr("disabled", true);
 				if(button.attr("value") == "Close"){
-					$("#colors").hide("slide", options, 500, updateCloseButton);
+					$("#colors").hide("slide", options, 500, updateCloseButton );
 					$("#slider").animate({ "width":"96%" }, 500, "swing");
 				} else {
-					$("#colors").show("slide", options, 500, updateCloseButton);
+					$("#colors").show("slide", options, 500, function() { updateCloseButton();  posResElems(); } );
 					$("#slider").animate({ "width":"81%" }, 500, "swing");
 				}
 			}
