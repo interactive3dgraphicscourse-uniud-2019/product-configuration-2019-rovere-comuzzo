@@ -577,6 +577,13 @@
 				} else { // Wood
 					price += 10 * overprice_holder;
 				}
+				if(dispenserId=="Aluminium"){
+					price += 3;
+				}else if(dispenserId=="Iron"){
+					price -= 4;
+				}else if (dispenserId=="Steel"){
+					price -=2;
+				}
 				$("#price").text("Price: " + (""+price).substr(0, 5) + "$");
 			}
 
