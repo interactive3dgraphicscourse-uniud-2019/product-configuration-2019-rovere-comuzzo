@@ -87,7 +87,7 @@ Alcune possibili estensioni e miglioramenti sono:
 
 ## Crediti
 
-- Il modello della macchinetta è preso da:
-- le texture per i materiali del legno sono prese da: <https://cc0textures.com/>
+- Il modello della macchinetta è preso da:https://sketchfab.com
+- le texture per i materiali del legno sono prese da: https://cc0textures.com
 
   
