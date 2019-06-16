@@ -8,17 +8,28 @@
 
 - Rovere Andrea, Matricola 128074
 
+## Descrizione generale del progetto
 
+Il progetto consiste in una applicazione web caratterizzata da un sito di e-commerce che permette l'acquisto di una machcientta del caffè, abbiamo introdotto anche la possibilità di selezionare il materiale per il case e il materiale per il dispenser da una lista di materiali disponibili, è inoltre possibile ruotare la camera attorno alla macchinetta per osservare il prodotto da diverse angolazioni, è inoltre possibile avvicinare o allontanare la camera per concentrarsi sui dettagli o avere una vista d'insieme.
+
+Inoltre è possibile rimuovere il contenitore del caffè posto nella parte sinistra della macchinetta.
+
+Le informazioni sui materiali scelti e sul prezzo dell prodotto vengono visualizzate in alto vicino al pulsante per l'acquisto.
 
 ## Suddivisione del codice 
 
 - **index.html** è il file principale che contiene il codice html, l'inizializzazione della scena e il rendering loop 
-
 - **stile.css** è il file css che contiene il codice per l'interfaccia utente
 - **materials.js** contiene il codice relativo ai materiali usati
+- **README.md** è il presente file
+- **journal.md** giornale dei progressi sul progetto
 - la cartella **gui-images** contiene le immagini necessarie per l'interfaccia utente
 - la cartella **textures** contiene le immagini necessarie per i materiali legnosi
 - la cartella **jquery-ui** contiene il codice che crea le animazioni dell'interfaccia utente
+- la cartella **fonts** contiene i font e le licenze usati nella pagina web
+- la cartella **libs** contiene le librerie impiegate nella realizzazione della pagina di e-commerce
+- la cartella **models** contiene il modello (in formato gltf) della macchinetta visulalizzata
+- la cartella **Screenshot** contiene gli screenshot usati in questa relazione
 
 
 
@@ -78,4 +89,5 @@ Alcune possibili estensioni e miglioramenti sono:
 
 - Il modello della macchinetta è preso da:
 - le texture per i materiali del legno sono prese da: <https://cc0textures.com/>
-- la cubemap è presa da:
+
+  
