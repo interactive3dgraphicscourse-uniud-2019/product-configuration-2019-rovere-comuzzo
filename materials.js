@@ -11,7 +11,7 @@ const NORMAL_MAP_LIGHT = loadTexture( "textures/Wood03_nrm.jpg" );
 
 const ZEROS = new THREE.Vector3(0, 0, 0);
 const BLACK_LIGHT = { type: "v3", value: ZEROS };
-const LIGHTS_INT = { type: "v3", value: new THREE.Vector3(  1.0,   1.0,   1.0)};
+const LIGHTS_INT = { type: "v3", value: new THREE.Vector3(  0.7,   0.7,   0.7)};
 const LIGHTS = { value:
 [
 	new THREE.Vector3(70, 20, -70),

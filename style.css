@@ -2,14 +2,23 @@
    font-family: Berkshire; 
    src: url('fonts/BerkshireSwash-Regular.ttf');
 } 
-
+@font-face {
+	font-family: Acme; 
+	src: url('fonts/Acme-Regular.ttf');
+ } 
 #main{
     position: relative;
+}
+#acme{
+	font-family: Acme;
+	color: red;
+	font-size: 2.5vw
 }
 
 #navbar{
 	border-bottom: 2px solid #f5ad66;
 	background-color: #D0D0D0;
+	
 }
 
 #navbar ul{
@@ -31,13 +40,15 @@
 		text-align: center;
 		z-index: 11;
 		background-color: red;
-		font-size: 1.5vw;
+		font-size: 2vw;
 		color: white;
 		border-color: black;
 		border-width:2px;
 		border-style:solid;
+		border-radius: 5px;
+		padding-left: 1vw;
+		padding-right: 0.5vw;
 }
-
 #colors{
     position: fixed;
     right: 0px;

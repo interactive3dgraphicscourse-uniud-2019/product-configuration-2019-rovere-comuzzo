@@ -30,27 +30,38 @@ Nella pagina web è possibile ruotare la camera attorno alla macchinetta del caf
 
 ## Interfaccia Utente
 
+Nella parte in alto della pagina web è  presente un menù contenente:
+
+- Logo ACME
+- Nome del macchinetta del caffè
+- Pulsante per effettuare l'acquisto della macchinetta
+- Prezzo della macchinetta
+- Materiale selezionato per il case 
+- Materiale selezionato per il dispenser 
+
+![Interfaccia utente](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\interfaccia_top.JPG)
+
 Nella parte destra della pagina web è presente un menù contenente tre bottoni:
 
 - **Select Case**: premendolo compare una lista di immagini che se premute premettono di cambiare i materiali del case della macchinetta, una volta premuto viene sostituito dal bottone **Hide Selector** che può essere usato per nascondere la lista di materiali
 - **Select Dispenser**: premendolo compare una lista di immagini che se premute premettono di cambiare i materiali del dispenser della macchinetta, una volta premuto viene sostituito dal bottone **Hide Selector** che può essere usato per nascondere la lista di materiali
 - **Close**: può essere usato per minimizzare il menù avendo cosi una migliore visione del prodotto
 
-![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\interface.JPG)
+![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\interfaccia.JPG)
 
 ## Screenshot
 
+![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Front_full.JPG)
 
 
 
+![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Front_full_mat.JPG)
 
 
 
+![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Front_solo_mat.JPG)
 
-
-
-
-
+![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Side_solo.JPG)
 
 
 

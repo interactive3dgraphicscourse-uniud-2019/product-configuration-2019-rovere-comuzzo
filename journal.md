@@ -54,8 +54,31 @@
 
 - Abbiamo riscontrato un problema quando la pagina viene visualizzata sul browser "Chrome" e siamo riusciti a risolverlo
 
-#### 09/06/2019
+#### 10/06/2019
 
 - Abbiamo creato una nuova versione dell'interfaccia utente 
-- .Abbiamo aggiunto un altro materiale(legno chiaro)
+- Abbiamo aggiunto un altro materiale(legno chiaro)
 - Abbiamo modificato gli shader per tutti i materiali aggiungendo tre luci
+
+### 12/06/2019
+
+- Abbiamo modificato l'interfaccia utente aggiungendo alcune sezioni con prezzo e materiali scelti per la macchina
+- Abbiamo modificato il selettore di materiali
+
+### 13/06/2019
+
+- Abbiamo aggiunto una ambient occlusion map per calcolare le ombre della macchina del caffe
+
+### 14/06/2019
+
+- Abbiamo aggiunto un piano dello stesso colore dello sfondo della pagina su cui proiettare le ombre 
+- Abbiamo cambiato la posizione della camera
+
+### 15/06/2019
+
+- Abbiamo aggiunto una animazione per l'inserimento e la rimozione di una parte della macchinetta
+- Abbiamo pulito il codice
+
+### 16/06/2019
+
+- Abbiamo modificato il font delle scritte dell'interfaccia utente
