@@ -104,7 +104,6 @@ const UNIFORMS =
 		pointLightPosition: LIGHTS,
 		clight:	LIGHTS_INT,
 		spec_col:	{ type: "v3", value: new THREE.Vector3(0.12,  0.12,    0.12) },
-		ambientLight:	{ type: "v3", value: new THREE.Vector3() },
 		textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 	},
 	LIGHTWOOD: {
@@ -115,7 +114,6 @@ const UNIFORMS =
 		pointLightPosition: LIGHTS,
 		clight:	LIGHTS_INT,
 		spec_col:	{ type: "v3", value: new THREE.Vector3(0.12,  0.12,    0.12) },
-		ambientLight:	{ type: "v3", value: new THREE.Vector3() },
 		textureRepeat: { type: "v2", value: new THREE.Vector2(1,1) }
 	}
 };
