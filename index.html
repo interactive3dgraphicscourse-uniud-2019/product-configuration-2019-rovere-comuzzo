@@ -10,13 +10,11 @@
 	<body>
 		<script src="libs/three.js"></script>
 		<script src="libs/stats.min.js"></script>
-		<script src="libs/OrbitControls.js"></script>
 		<script src="libs/GLTFLoader.js"></script>
 		<script src="jquery-ui/jquery.js"></script>
 		<script src="jquery-ui/jquery-ui.min.js"></script>
 		<script src='libs/tween.min.js'></script>
-		
-		
+
 		<!-- body -->
 		<div id="navbar">
 		<nav>
@@ -31,32 +29,30 @@
 		</nav> 
 		</div>
 		<div id="main">
-		<div id="case-bar" class="sel-bar" >
-			<img src="gui-images/red.jpg" id="RED" onclick="setOthersMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/redMetal.jpg" id="REDMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/green.jpg" id="GREEN" onclick="setOthersMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/blue.jpg" id="BLUE" onclick="setOthersMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/blueMetal.jpg" id="BLUEMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/darkWood.jpg" id="DARKWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/lightWood.jpg" id="LIGHTWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
-		</div>
-		<div id="dispenser-bar" class="sel-bar" >
-			<img src="gui-images/metal.jpg" id="METAL" onclick="setDispenserMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/iron.jpg" id="IRON" onclick="setDispenserMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/aluminium.jpg" id="ALUMINIUM" onclick="setDispenserMaterial(MATERIALS[this.id]);">
-			<img src="gui-images/copper.jpg" id="COPPER" onclick="setDispenserMaterial(MATERIALS[this.id]);">
-		</div>
-		<div id="colors">
-			<input id="change-case" class=" ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
-			<input id="change-dispenser" class="ui-button ui-widget ui-corner-all" type="button" value="Select Dispenser" />
-			<input id="holder" class="ui-button ui-widget ui-corner-all" type="button" value="Without Holder" />
-		</div>
+			<div id="case-bar" class="sel-bar" >
+				<img src="gui-images/red.jpg" id="RED" onclick="setOthersMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/redMetal.jpg" id="REDMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/green.jpg" id="GREEN" onclick="setOthersMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/blue.jpg" id="BLUE" onclick="setOthersMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/blueMetal.jpg" id="BLUEMETAL" onclick="setOthersMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/darkWood.jpg" id="DARKWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/lightWood.jpg" id="LIGHTWOOD" onclick="setOthersMaterial(MATERIALS[this.id]);">
+			</div>
+			<div id="dispenser-bar" class="sel-bar" >
+				<img src="gui-images/metal.jpg" id="METAL" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/iron.jpg" id="IRON" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/aluminium.jpg" id="ALUMINIUM" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+				<img src="gui-images/copper.jpg" id="COPPER" onclick="setDispenserMaterial(MATERIALS[this.id]);">
+			</div>
+			<div id="colors">
+				<input id="change-case" class=" ui-button ui-widget ui-corner-all" type="button" value="Select Case" />
+				<input id="change-dispenser" class="ui-button ui-widget ui-corner-all" type="button" value="Select Dispenser" />
+				<input id="holder" class="ui-button ui-widget ui-corner-all" type="button" value="Without Holder" />
+			</div>
 		</div>
 		<input id="gui-button" class="ui-button ui-widget ui-corner-all" type="button" value="Close" onclick="changeGUIState();" />
-		</div>
 		<div id="slider"></div>
-		<div>
-		
+
 		<!-- shaders -->
 
 		<script type="text/x-glsl" id="vertex">
@@ -276,10 +272,8 @@
 			var loader = new THREE.GLTFLoader().setPath( 'models/gltf/coffee/' );
 			loader.load( 'scene.gltf', function ( object ) {
 				model = object.scene.children[0];
-				console.log(model.name);
 				model.scale.multiplyScalar( 0.01 );
 				model.traverse(function( child ){
-					console.log(child.name);
 					switch(child.name){
 						case 'Null':
 							child.remove(child.children[2]);
@@ -313,7 +307,7 @@
 				});
 				setMetalMaterial(MATERIALS.METAL);
 				setDispenserMaterial(MATERIALS.ALUMINIUM);
-				setOthersMaterial(MATERIALS.DARKWOOD);
+				setOthersMaterial(MATERIALS.LIGHTWOOD);
 				scene.add(model);
 			});
 			
@@ -325,16 +319,16 @@
 				renderer.setClearColor( 0xffffff );
 				
 				cameraPivot.add(camera);
-				camera.position.set( 0, 5, 14 );
+				camera.position.set( 0, 6, 14 );
 				camera.lookAt(0,2,0);
 				cameraDir = new THREE.Vector3(0, 10, 20 );
 				cameraDir.normalize();
 
-				plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), MATERIALS.PLANE.M);
+				let plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), MATERIALS.PLANE.M);
 				scene.add( plane );
 				plane.rotation.x = -90 * Math.PI/180;
 				scene.add( cameraPivot );
-				var light = new THREE.PointLight( 0xffffff, 2, 1000 );
+				let light = new THREE.PointLight( 0xffffff, 2, 1000 );
 				light.position.set( 10, 0, 10 );
 				
 				scene.add( light );
@@ -361,7 +355,7 @@
 				window.addEventListener("wheel", zoom, false);
 
 				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = $("#navbar").height()+50 + "px";
+				stats.domElement.style.top = $("#navbar").outerHeight() + "px";
 				document.body.appendChild( stats.domElement );
 			}
 
@@ -392,7 +386,7 @@
 				const d = evt.deltaY;
 				if((d > 0 && camera.position.z < 20) || (d < 0 && camera.position.z > 10)){
 					let cam = cameraDir.clone();
-					camera.position.add( cam.multiplyScalar(d/40));
+					camera.position.add( cam.multiplyScalar(d/25));
 				}
 			}
 			

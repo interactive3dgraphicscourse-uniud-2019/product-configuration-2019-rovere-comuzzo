@@ -97,7 +97,7 @@
 - Abbiamo migliorato la selezione dei materiali.
 - Abbiamo testato uno shader per calcolare una glossy specular reflection utilizzando la environment map ma non eravamo contenti del risultato e quindi abbiamo deciso di utilizzare i materiali sviluppati in precedenza.
 
-![screen](Screenshot/Schermata.png)
+![glossy-reflection](Screenshot/env-map.PNG)
 
 ---
 
