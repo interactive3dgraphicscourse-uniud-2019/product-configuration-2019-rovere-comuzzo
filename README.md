@@ -54,7 +54,7 @@ Nella parte in alto della pagina web è presente un menù contenente:
 - Nome del materiale selezionato per il case
 - Nome del materiale selezionato per il dispenser 
 
-![Interfaccia utente](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\interfaccia_top.JPG)
+![Interfaccia utente top](Screenshot/Interfaccia_top.PNG)
 
 Nella parte destra della pagina web è presente un menù contenente tre pulsanti:
 
@@ -62,21 +62,21 @@ Nella parte destra della pagina web è presente un menù contenente tre pulsanti
 - **Select Dispenser**: premendolo è possibile far comparire un menù per la selezione dei materiali del case della macchinetta; come il pulsante precedente può essere poi utilizzato per nascondere il menù visualizzato
 - **Close**: può essere usato per nascondere il menù cosi da permettere una migliore visualizzazione del prodotto anche su dispositivi che presentano uno schermo di dimensioni ridotte
 
-![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\interfaccia.JPG)
+![Interfaccia utente](Screenshot/Interfaccia.JPG)
 
 ## Screenshot
 
-![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Front_full.JPG)
+![front full](Screenshot/Front_full.JPG)
 
 
 
-![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Front_full_mat.JPG)
+![front full mat](Screenshot/Front_full_mat.JPG)
 
 
 
-![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Front_solo_mat.JPG)
+![front solo](Screenshot/Front_solo_mat.JPG)
 
-![Interfaccia utente ](C:\xampp\htdocs\product-configuration-2019-rovere-comuzzo\Screenshot\Side_solo.JPG)
+![side_solo](Screenshot/Side_solo.JPG)
 
 
 
