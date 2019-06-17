@@ -50,9 +50,15 @@
 
 - Abbiamo aggiunto un file css per una prima versione del layout della pagina e per l'interfaccia utente
 
+#### 07/06/2019
+
+- Abbiamo deciso di aggiungere la possibilità di nascondere interfaccia utente in modo che il modello sia più visibile da mobile
+
 #### 08/06/2019
 
-- Abbiamo riscontrato un problema quando la pagina viene visualizzata sul browser "Chrome" e siamo riusciti a risolverlo
+- Abbiamo riscontrato un problema quando la pagina viene visualizzata sul browser "Chrome" e siamo riusciti a risolverli
+
+  
 
 #### 10/06/2019
 
@@ -60,25 +66,26 @@
 - Abbiamo aggiunto un altro materiale(legno chiaro)
 - Abbiamo modificato gli shader per tutti i materiali aggiungendo tre luci
 
-### 12/06/2019
+#### 12/06/2019
 
 - Abbiamo modificato l'interfaccia utente aggiungendo alcune sezioni con prezzo e materiali scelti per la macchina
 - Abbiamo modificato il selettore di materiali
+- Abbiamo aggiunto una enviroment map  e usato uno shadere con una glossy specular reflection ma non eravamo contenti del risultato quindi abbiamo deciso di rimuoverla
 
-### 13/06/2019
+#### 13/06/2019
 
 - Abbiamo aggiunto una ambient occlusion map per calcolare le ombre della macchina del caffe
 
-### 14/06/2019
+#### 14/06/2019
 
 - Abbiamo aggiunto un piano dello stesso colore dello sfondo della pagina su cui proiettare le ombre 
 - Abbiamo cambiato la posizione della camera
 
-### 15/06/2019
+#### 15/06/2019
 
 - Abbiamo aggiunto una animazione per l'inserimento e la rimozione di una parte della macchinetta
 - Abbiamo pulito il codice
 
-### 16/06/2019
+#### 16/06/2019
 
 - Abbiamo modificato il font delle scritte dell'interfaccia utente
