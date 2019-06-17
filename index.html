@@ -324,7 +324,7 @@
 				cameraDir = new THREE.Vector3(0, 10, 20 );
 				cameraDir.normalize();
 
-				let plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), MATERIALS.PLANE.M);
+				plane = new THREE.Mesh(new THREE.PlaneGeometry(11.6, 11.6), MATERIALS.PLANE.M);
 				scene.add( plane );
 				plane.rotation.x = -90 * Math.PI/180;
 				scene.add( cameraPivot );
