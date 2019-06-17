@@ -16,6 +16,8 @@ You can get the machine with or without the annex coffe holder.
 
 ## Descrizione generale del progetto
 
+Il progetto consiste nel front-end di una porzione di un sito di e-commerce dove è possibile acquistare una macchinetta per fare il caffè.
+
 >>>>L'applicazione presenta le seguenti funzionalità:
 
 - La possibilità di selezionare il materiale per il case e il materiale per il dispenser da una lista di materiali disponibili
