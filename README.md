@@ -1,10 +1,10 @@
 # Second project for the course of Interactive 3D Graphics
 
-### NuclearCoffee3000
+This is our second project for the course of Interactive 3D Graphics, it is a fragment of an e-commerce site that sells a coffee machine that can be customized using a simple UI.
 
-This is our project for the Interactive 3D graphics, we created a fragment of an e-commerce site where You can inspect and buy a coffee mahcine.
+### About NuclearCoffee3000
 
-NuclearCoffee3000 is the newest type of coffee brewing machine, it is highly cuscomizable and it comes in many colors and materials.
+NuclearCoffee3000 is the newest type of coffee brewing machine, it is highly customizable and it comes in many colors and materials.
 
 You can get the machine with or without the annex coffe holder.
 
@@ -18,7 +18,7 @@ You can get the machine with or without the annex coffe holder.
 
 Il progetto consiste nel front-end di una porzione di un sito di e-commerce dove è possibile acquistare una macchinetta per fare il caffè.
 
->>>>L'applicazione presenta le seguenti funzionalità:
+L'applicazione presenta le seguenti funzionalità:
 
 - La possibilità di selezionare il materiale per il case e il materiale per il dispenser da una lista di materiali disponibili
 - La possibilità di visualizzare la macchinetta senza l'armadietto porta caffè dato che è disponibile un' opzione di acquisto che non lo comprende
