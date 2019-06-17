@@ -50,7 +50,7 @@ Nella parte in alto della pagina web è  presente un menù contenente:
 - Materiale selezionato per il case 
 - Materiale selezionato per il dispenser 
 
-![Interfaccia utente top](Screenshot/interfaccia_top.JPG)
+![Interfaccia utente top](Screenshot/Interfaccia_top.PNG)
 
 Nella parte destra della pagina web è presente un menù contenente tre bottoni:
 
@@ -58,7 +58,7 @@ Nella parte destra della pagina web è presente un menù contenente tre bottoni:
 - **Select Dispenser**: premendolo compare una lista di immagini che se premute premettono di cambiare i materiali del dispenser della macchinetta, una volta premuto viene sostituito dal bottone **Hide Selector** che può essere usato per nascondere la lista di materiali
 - **Close**: può essere usato per minimizzare il menù avendo cosi una migliore visione del prodotto
 
-![Interfaccia utente](Screenshot/interfaccia.JPG)
+![Interfaccia utente](Screenshot/Interfaccia.JPG)
 
 ## Screenshot
 
