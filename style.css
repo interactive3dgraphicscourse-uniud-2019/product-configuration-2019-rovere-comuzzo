@@ -1,24 +1,31 @@
 @font-face {
    font-family: Berkshire; 
    src: url('fonts/BerkshireSwash-Regular.ttf');
-} 
+}
+
 @font-face {
 	font-family: Acme; 
 	src: url('fonts/Acme-Regular.ttf');
- } 
+}
+
+body {
+	margin: 0px;
+}
+
 #main{
     position: relative;
 }
+
 #acme{
 	font-family: Acme;
 	color: red;
-	font-size: 2.5vw
+	font-size: 2.5vw;
+	text-decoration: none;
 }
 
 #navbar{
-	border-bottom: 2px solid #f5ad66;
+	border-bottom: 2px solid #F5AD66;
 	background-color: #D0D0D0;
-	
 }
 
 #navbar ul{
@@ -27,7 +34,6 @@
 
 #navbar ul li{
 	display: inline;
-
 }
 
 .nav-label{
@@ -38,7 +44,6 @@
 
 #buy-button{
 		text-align: center;
-		z-index: 11;
 		background-color: red;
 		font-size: 2vw;
 		color: white;
@@ -48,27 +53,28 @@
 		border-radius: 5px;
 		padding-left: 1vw;
 		padding-right: 0.5vw;
+		text-decoration: none;
 }
+
 #colors{
     position: fixed;
     right: 0px;
 	bottom: 0px;
     width: 15%;
     background-color: #D0D0D0;
-    z-index: 10;
+    z-index: 2;
 	text-align: center;
 	border-radius: 9px;
-	border-top: 2px solid #f5ad66;
-	border-left: 2px solid #f5ad66;
+	border-top: 2px solid #F5AD66;
+	border-left: 2px solid #F5AD66;
 }
 
 #case-bar{
 	top: 10px;
-	
 }
 
 .sel-bar{
-	z-index: 11;
+	z-index: 1;
 	position: absolute;
 	display: none;
 	background-color: black;
@@ -118,7 +124,7 @@
 
 #gui-button{
 	position: absolute;
-	z-index: 11;
+	z-index: 2;
 	right: 0px;
 	width: 14.25%;
 	margin-right: 0.375%;
@@ -127,7 +133,7 @@
 
 #slider {
 	width: 81%;
-	z-index: 1;
+	z-index: 3;
 }
 
 
