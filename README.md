@@ -1,6 +1,12 @@
 # Second project for the course of Interactive 3D Graphics
 
+### NuclearCoffee3000
 
+This is our project for the Interactive 3D graphics, we created a fragment of an e-commerce site where You can inspect and buy a coffee mahcine.
+
+NuclearCoffee3000 is the newest type of coffee brewing machine, it is highly cuscomizable and it comes in many colors and materials.
+
+You can get the machine with or without the annex coffe holder.
 
 ## Membri del gruppo
 
@@ -10,11 +16,13 @@
 
 ## Descrizione generale del progetto
 
-Il progetto consiste in una applicazione web caratterizzata da un sito di e-commerce che permette l'acquisto di una machcientta del caffè, abbiamo introdotto anche la possibilità di selezionare il materiale per il case e il materiale per il dispenser da una lista di materiali disponibili, è inoltre possibile ruotare la camera attorno alla macchinetta per osservare il prodotto da diverse angolazioni, è inoltre possibile avvicinare o allontanare la camera per concentrarsi sui dettagli o avere una vista d'insieme.
+Il progetto consiste in una applicazione web caratterizzata da un sito di e-commerce che permette l'acquisto di una macchientta del caffè, abbiamo introdotto anche la possibilità di selezionare il materiale per il case e il materiale per il dispenser da una lista di materiali disponibili, è inoltre possibile ruotare la camera attorno alla macchinetta per osservare il prodotto da diverse angolazioni, è inoltre possibile avvicinare o allontanare la camera per concentrarsi sui dettagli o avere una vista d'insieme.
 
 Inoltre è possibile rimuovere il contenitore del caffè posto nella parte sinistra della macchinetta.
 
 Le informazioni sui materiali scelti e sul prezzo dell prodotto vengono visualizzate in alto vicino al pulsante per l'acquisto.
+
+La pagina web è responsive, di conseguenza le immagine e il testo presente nella pagina vengono ridimensionati automaticamente quando la pagina viene ingrandita o rimpicciolita.
 
 ## Suddivisione del codice 
 
