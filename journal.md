@@ -81,7 +81,7 @@
 
 - Abbiamo riscontrato un problema quando la pagina viene visualizzata sul browser "Chrome" e siamo riusciti a risolverlo abilitando l'estensione **derivatives** nei materiali che utilizzano una normal map.
 
----  
+---
 
 #### 10/06/2019
 
@@ -96,6 +96,8 @@
 - Abbiamo implementato una navigation bar.
 - Abbiamo migliorato la selezione dei materiali.
 - Abbiamo testato uno shader per calcolare una glossy specular reflection utilizzando la environment map ma non eravamo contenti del risultato e quindi abbiamo deciso di utilizzare i materiali sviluppati in precedenza.
+
+![](Screenshot/Schermata da 2019-06-17 16-20-56.png)
 
 ---
 
