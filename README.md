@@ -27,7 +27,7 @@ L'applicazione presenta le seguenti funzionalità:
 
 I materiali scelti e il prezzo relativo alle opzioni selezionate vengono visualizzati sulla navigation bar in alto.
 
-La pagina web è responsive, di conseguenza le immagine e il testo presente nella pagina vengono ridimensionati automaticamente quando la pagina viene ingrandita o rimpicciolita.
+Durante lo sviluppo si è cercato di creare una pagina web responsive dove le immagini e il testo vengono ridimensionati automaticamente in base alla dimensione della finestra.
 
 ## Suddivisione del codice 
 
